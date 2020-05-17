@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-
+use App\Post;
 
 class ProfileController extends Controller
 {
@@ -17,9 +17,6 @@ class ProfileController extends Controller
         return redirect('user.profile.create');
     }
     
-    
-    
-    
     public function edit()
     {
         return view('user.profile.edit');
@@ -31,10 +28,19 @@ class ProfileController extends Controller
     }
     
     
-    public function mypages()
+    
+    
+    
+    public function mypages(Request $request)
     {
-        return view('user.profile.mypages');
+        $posts = Post::where('user_id', $request->id)->get();
+        return view('user.profile.mypages',["posts" =>$posts]);
     }
+    
+    
+    
+    
+    
     
     public function toppages()
     {

@@ -76,7 +76,7 @@
                                     </div>
                                 </div>
                                     
-                                    @foreach($posts as $post)
+                                    
                                         <div id="main_list">
                                             <div id ="container_list">
                                                  <form action="{{ action('User\CoordinationController@index') }}" method="get">
@@ -84,7 +84,11 @@
                                                     <div id ="controls" class="controls"></div> 
                                                         <div class="slideshow-container">
                                                             <div id="loading" class="loader"></div>
-                                                            
+                                                                 @foreach($posts as $post)
+                                                                     <div>
+                                                                          <img src="{{ secure_asset('storage/image/' . $post->image_path) }}">
+                                                                     </div>
+                                                                 @endforeach
                                                             <div id="slideshow" class="slideshow"></div>
                                                         </div>
                                                     <div id="caption" class="caption-container"></div>
@@ -97,7 +101,6 @@
                                                 <div style="clear:both;"></div>
                                             </div>
                                         </div>
-                                    @endforeach
                                     
                         </div>
                     </div>

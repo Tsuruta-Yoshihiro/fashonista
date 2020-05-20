@@ -75,33 +75,20 @@
                                         <a href=" {{ url('/user/coordination/create') }}" class="over">コーディネートを投稿する</a>
                                     </div>
                                 </div>
-                                    
-                                    
+                                
+                                    <form action="{{ action('User\ProfileController@mypages') }}" method="get">
                                         <div id="main_list">
-                                            <div id ="container_list">
-                                                 <form action="{{ action('User\CoordinationController@index') }}" method="get">
-                                                　
-                                                    <div id ="controls" class="controls"></div> 
-                                                        <div class="slideshow-container">
-                                                            <div id="loading" class="loader"></div>
-                                                                 @foreach($posts as $post)
-                                                                     <div>
-                                                                          <img src="{{ secure_asset('storage/image/' . $post->image_path) }}">
-                                                                     </div>
-                                                                 @endforeach
-                                                            <div id="slideshow" class="slideshow"></div>
-                                                        </div>
-                                                    <div id="caption" class="caption-container"></div>
-                                                </form>
-                                                
-                                                <!-- サムネイルナビゲーション -->
-                                                <div id="thumbs" class="navigation">
-                                                    <ul class="thumbs noscript"></ul>
-                                                </div>
-                                                <div style="clear:both;"></div>
-                                            </div>
+                                             <ul class="list clearfix">
+                                                 @foreach($posts as $post)
+                                                     <li class="private">
+                                                         <div class="imagelist">
+                                                            <img src="{{ secure_asset('storage/image/' . $post->image_path) }}">
+                                                         </div>
+                                                     </li>
+                                                 @endforeach
+                                             </ul>
                                         </div>
-                                    
+                                    </form>
                         </div>
                     </div>
                 </form>

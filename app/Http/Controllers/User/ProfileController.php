@@ -28,19 +28,11 @@ class ProfileController extends Controller
     }
     
     
-    
-    
-    
     public function mypages(Request $request)
     {
         $posts = Post::where('user_id', $request->id)->get();
         return view('user.profile.mypages',["posts" =>$posts]);
     }
-    
-    
-    
-    
-    
     
     public function toppages()
     {

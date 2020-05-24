@@ -81,58 +81,64 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 2);
+/******/ 	return __webpack_require__(__webpack_require__.s = 3);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ "./resources/js/mypages.js":
-/*!*********************************!*\
-  !*** ./resources/js/mypages.js ***!
-  \*********************************/
+/***/ "./resources/js/like.js":
+/*!******************************!*\
+  !*** ./resources/js/like.js ***!
+  \******************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-function trimming($photoBox) {
-  //Functionで機能をまとめ
-  jQuery($photoBox).each(function () {
-    var box = jQuery(this);
-    var i = jQuery('img', this);
-    var box_w = $(box).width();
-    var box_h = $(box).height();
-    var i_w = $(i).width();
-    var i_h = $(i).height();
-    var i_par = i_w / i_h; //画像の縦横比
+$(function () {
+  var $like = $('.btn-like'),
+      //いいねボタンセレクト
+  likePostId; //投稿ID
 
-    var box_par = box_w / box_h; //画像を包むボックスの縦横比
-    //画像の縦横比と枠の縦横比を比べて分岐させ違うトリミングをする
+  $like.on('click', function (e) {
+    e.stopPropagation();
+    var $this = $(this); //カスタム属性(postid)に格納された投稿ID取得する
 
-    if (i_par > box_par) {
-      //画像が枠より横長の場合高さ100%で幅左右を切る
-      $(i).css({
-        "width": "auto",
-        "height": "100%"
-      });
-    } else {
-      $(i).css({
-        //画像が枠より縦長または同じの場合幅100%にして高さの上下を切る
-        "width": "100%",
-        "height": "auto"
-      });
-    }
+    likePostId = $this.parents('.post').date('postid');
+    $.ajax({
+      type: 'POST',
+      url: 'ajaxLike.php',
+      //post送信を受け取るphpアフィル
+      data: {
+        postId: likePostId
+      } //{キー:投稿ID}
+
+    }).done(function (data) {
+      console.log('Ajax Success'); //いいねの総数を表示する
+
+      $this.children('span').html(data); //いいねの取り消しスタイル
+
+      $this.children('i').toggleClass('far'); //空洞のハート
+      //いいね押した時のスタイル
+
+      $this.children('i').toggleClass('fas'); //塗りつぶしハート
+
+      $this.children('i').toggleClass('active');
+      $this.toggleClass('active');
+    }).fail(function (msg) {
+      console.log('Ajax Error');
+    });
   });
-}
+});
 
 /***/ }),
 
-/***/ 2:
-/*!***************************************!*\
-  !*** multi ./resources/js/mypages.js ***!
-  \***************************************/
+/***/ 3:
+/*!************************************!*\
+  !*** multi ./resources/js/like.js ***!
+  \************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /home/ec2-user/environment/fashonista/resources/js/mypages.js */"./resources/js/mypages.js");
+module.exports = __webpack_require__(/*! /home/ec2-user/environment/fashonista/resources/js/like.js */"./resources/js/like.js");
 
 
 /***/ })

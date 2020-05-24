@@ -83,6 +83,14 @@
                                                      <li class="private">
                                                          <div class="imagelist">
                                                             <img src="{{ secure_asset('storage/image/' . $post->image_path) }}">
+                                                                <div class="meta clearfix">
+                                                                    <div class="like">
+                                                                        <span class="icon_font">
+                                                                            
+                                                                            
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
                                                          </div>
                                                      </li>
                                                  @endforeach

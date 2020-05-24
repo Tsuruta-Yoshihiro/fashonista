@@ -18,4 +18,10 @@ class Post extends Model
     {
         return $this->belongsTo('App\User');
     }
+    
+    //「いいね！」しているユーザーを抜き出す
+    public function like_users()
+    {
+        return $this->belongsTomMany(User::class, 'likes', 'post_id', 'user_id')->withTimestamps();
+    }
 }

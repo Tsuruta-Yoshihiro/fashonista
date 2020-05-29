@@ -227,5 +227,11 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
 
     ],
+    
+    'providers' => array(
+
+    kanazaca\CounterCache\CounterCacheServiceProvider::class,
+    )
+    
 
 ];

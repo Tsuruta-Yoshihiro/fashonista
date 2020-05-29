@@ -253,7 +253,7 @@ body {
 }
 
 #main_list .list li .imagelist img {
-  height: auto;
+  height: -webkit-fill-available;
  /*画像のセンタリング（中央寄せ）*/
   position: absolute;
   top: 50%;
@@ -261,5 +261,10 @@ body {
   -webkit-transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
-  object-fit: cover;
+}
+
+#main_list .list li .meta {
+  height: 30px;
+  border-top: none;
+  padding: 6px 0 8px 0;
 }

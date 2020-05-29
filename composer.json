@@ -60,5 +60,8 @@
         "post-create-project-cmd": [
             "@php artisan key:generate --ansi"
         ]
+    },
+    "require": {
+    "kanazaca/counter-cache": "1.0.1"
     }
 }

@@ -101,9 +101,10 @@
                         </div>
                     </div>
                     
-                    {{ csrf_field() }}
-                    <input id="submit_button" type="submit" class="btn btn-primary" value="登録する">
-                    
+                    <div class="btnsubmit">
+                        {{ csrf_field() }}
+                        <input id="submit_button" type="submit" class="btn btn-primary" value="登録する">
+                    </div>
                 </form>
             </div>
         </div>

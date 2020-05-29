@@ -25,6 +25,9 @@ class CreatePostsTable extends Migration
             $table->string('item5')->nullable();
             $table->string('item6')->nullable();
             $table->timestamps();
+            
+            $table->integer('likes_count')->default(0);
+            
         });
     }
 

@@ -18,6 +18,7 @@ class CreateLikesTable extends Migration
             $table->string('user_id');
             $table->string('post_id');
             $table->timestamps();
+            
         });
     }
 

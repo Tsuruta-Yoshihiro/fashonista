@@ -15,7 +15,9 @@ class CreatePostsTable extends Migration
     {
         Schema::create('posts', function (Blueprint $table) {
             $table->bigIncrements('post_id');
-            $table->string('user_id');
+            
+            $table->bigInteger('user_id');
+            
             $table->string('image_path');
             $table->string('coordination_summary')->nullable();
             $table->string('item1')->nullable();
@@ -24,9 +26,9 @@ class CreatePostsTable extends Migration
             $table->string('item4')->nullable();
             $table->string('item5')->nullable();
             $table->string('item6')->nullable();
-            $table->timestamps();
             
-            $table->integer('likes_count')->default(0);
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->timestamps();
             
         });
     }
@@ -38,8 +40,7 @@ class CreatePostsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('posts', function (Blueprint $table) {
+        Schema::dropIfExists('posts');
             
-        });
     }
 }

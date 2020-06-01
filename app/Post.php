@@ -14,14 +14,5 @@ class Post extends Model
     'coordination_summary' => 'required',
     );
     
-    public function user()
-    {
-        return $this->belongsTo('App\User');
-    }
     
-    //「いいね！」しているユーザーを抜き出す
-    public function like_users()
-    {
-        return $this->belongsTomMany(User::class, 'likes', 'post_id', 'user_id')->withTimestamps();
-    }
 }

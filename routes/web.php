@@ -46,17 +46,11 @@ Route::group(['prefix' => 'user', 'middleware' => 'auth'], function() {
     Route::get('profile/toppages', 'User\ProfileController@toppages');
     Route::get('profile/othermypages', 'User\ProfileController@othermypages');
     
+    
+    Route::post('/posts/{psot}/likes', 'AjaxlikeController@store');
+    Route::post('/post/{post}/likes/{like}', 'AjaxlikeController@destroy');
+    
 });
-
-
-//「いいね！」機能で該当するidを持っている画像に対して、likes(いいね！付ける)/unlikes(いいね！外す)の処理
-Route::group(['middleware'=>'auth'],function(){
-    Route::group(['prefix'=>'likes/{id}'],function(){
-       Route::post('like','ProfileController@store')->name('likes.like');
-       Route::delete('unlike','ProfileController@destroy')->name('likes.unlike');
-    });
-});
-
 
 
 Auth::routes();

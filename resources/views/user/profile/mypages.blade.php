@@ -75,7 +75,7 @@
                                         <a href=" {{ url('/user/coordination/create') }}" class="over">コーディネートを投稿する</a>
                                     </div>
                                 </div>
-                                
+                                　　
                                     <form action="{{ action('User\ProfileController@mypages') }}" method="get">
                                         <div id="main_list">
                                              <ul class="list clearfix">

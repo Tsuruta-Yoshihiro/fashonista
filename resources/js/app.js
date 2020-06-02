@@ -1,3 +1,5 @@
+
+import axios from 'axios';
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -7,6 +9,12 @@
 require('./bootstrap');
 
 window.Vue = require('vue');
+window.axios = require("axios");
+window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest'
+const token = document.head.querySelector('meta[name="csrf-token"]')
+if (token) {
+  window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content
+}
 
 /**
  * The following block of code may be used to automatically register your
@@ -19,8 +27,7 @@ window.Vue = require('vue');
 // const files = require.context('./', true, /\.vue$/i);
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
 
-Vue.component('example-component', require('./components/ExampleComponent.vue').default);
-
+//Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('like', require('./components/Like.vue').default);
 
 /**

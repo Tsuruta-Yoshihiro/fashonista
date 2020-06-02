@@ -34,6 +34,9 @@ class ProfileController extends Controller
         return view('user.profile.mypages',["posts" =>$posts]);
     }
     
+    
+    
+    
     //いいね機能
     public function store(Request $request, $id)
     {

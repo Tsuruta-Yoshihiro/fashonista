@@ -1,35 +1,32 @@
 <template>
-  <div>
-    <button
-      type="button"
-      class="btn m-0 p-1 shadow-none"
+   <div>
+       <button 
+       type="button" 
+       :class="{ 'button--liked': liked_by_user }" 
+       @click="onLikeClick"
+       >
       
-      @click="submit(psotId)"/>
-    
-    
-    
-    </button>
-    {{ countLikes }}
-  </div>
+        <i class="icon ion-md-heart"></i>{{ likes_count }}
+       </button>
+   </div>
 </template>
-
-
 
 <script>
     export default {
-        props: ['psotId'],
+        props: ['postId'],
         
         methods: {
             submit(postId) {
-                let url = '/api/posts/${psotId}/like'
+              let url = '/api/posts/${postId}/like'
+              
+              axios.post(url)
+              .then(response => {
                 
-                axios.post(url)
-                .then(response) => {
-                  
-                })
-                .catch(error => {
-                  alert(error)
-                });
+              })
+              .catch(error => {
+                alert(error)
+              });
+              
             }
         }
     }

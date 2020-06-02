@@ -14,5 +14,4 @@ class Post extends Model
     'coordination_summary' => 'required',
     );
     
-    
 }

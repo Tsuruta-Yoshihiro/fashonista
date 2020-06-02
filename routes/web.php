@@ -47,8 +47,8 @@ Route::group(['prefix' => 'user', 'middleware' => 'auth'], function() {
     Route::get('profile/othermypages', 'User\ProfileController@othermypages');
     
     
-    Route::post('/posts/{psot}/likes', 'AjaxlikeController@store');
-    Route::post('/post/{post}/likes/{like}', 'AjaxlikeController@destroy');
+    //Route::post('/posts/{psot}/likes', 'AjaxlikeController@store');
+    //Route::post('/post/{post}/likes/{like}', 'AjaxlikeController@destroy');
     
 });
 

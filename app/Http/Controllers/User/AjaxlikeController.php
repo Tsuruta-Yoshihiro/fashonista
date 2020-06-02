@@ -12,12 +12,9 @@ use App\Post;
 
 class AjaxlikeController extends Controller
 {
-    public function like(Post $posts) 
+    public function like(Post $post) 
     {
-        \Auth::user()->id;
-        $like = Like::create(['user_id' => \Auth::user()->id, 'post_id' => $post->id]);
-        
-        return response()->json([]);
+        dd($post);
     }
        
 }

@@ -15,6 +15,7 @@ class CoordinationController extends Controller
     
     public function create(Request $request)
     {
+        
         //Validation
         $this->validate($request, Post::$rules);
         $post = new Post;
@@ -33,7 +34,6 @@ class CoordinationController extends Controller
         $post->save();
         return redirect('user/profile/mypages?id='. $request->user()->id);
     }
-    
     
     
     

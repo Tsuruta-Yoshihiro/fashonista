@@ -1,33 +1,76 @@
 <template>
    <div>
-       <button 
-       type="button" 
-       :class="{ 'button--liked': liked_by_user }" 
-       @click="onLikeClick"
-       >
-      
-        <i class="icon ion-md-heart"></i>{{ likes_count }}
-       </button>
+       <button
+          type="button"
+          class="btn m-0 p-1 shadow-none"
+          >
+            <i class="fas fa-heart mr-1"
+               @click="Likeclick"
+            />
+        </button>
+       {{ likes_count }}
    </div>
 </template>
 
 <script>
     export default {
-        props: ['postId'],
+        props: {
+            initialIsLikeBy: {
+                type: Boolean,
+                default: false,
+            },
+            
+            initialCountLikes: {
+                type: Number,
+                default: 0,
+            },
+            
+            authorized: {
+                type: Boolean,
+                default: false,
+            },
+            
+            endpoint: {
+                type: String,
+            },
+        },
+        
+        data() {
+            return {
+            isLikeBy: this.initialIsLikeBy,
+            countLikes: this.initialCountLikes,
+            gotToLike: false,
+            }
+        },
         
         methods: {
-            submit(postId) {
-              let url = '/api/posts/${postId}/like'
+            Likeclick({ id,liked }) {
+              //if (!this.authorized) {
+                  //alert('いいね機能を使うにはログインしてください。')
+                  //return
+              //}
               
-              axios.post(url)
-              .then(response => {
+              this.isLikedBy
+              ? this.unlike(id)
+              : this.like(id)
+            },
+            
+            async like(id) {
+                const response = await axios.put(this.endpoint)
                 
-              })
-              .catch(error => {
-                alert(error)
-              });
-              
-            }
-        }
+                this.isLikeBy = true
+                this.countLikes = response.data.countLikes
+                this.gotToLike = true
+            },
+            
+            
+            async unlike() {
+                const response = await axios.delete(this.endpoint)
+                
+                this.isLikedBy = false
+                this.countLikes = response.data.countLikes
+                this.gotToLike = false
+            },
+        },
     }
 </script>

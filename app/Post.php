@@ -6,12 +6,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
-    protected $guarded = array('id');
+    protected $fillable = [
+        'image_path',
+        'coordination_summary',
+        
+    ];
     
-    public static $rules = array(
-    //'user_id' => 'required',
-    'image' => 'required',
-    'coordination_summary' => 'required',
-    );
+    public function like ()
+    {
+        return $this->belongsToMany('App\User', 'like')->withTimestamps();
+    }
     
 }

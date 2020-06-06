@@ -4,6 +4,7 @@ namespace App\Http\Controllers\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Post;
+use App\Like;
 
 class CoordinationController extends Controller
 {
@@ -15,9 +16,6 @@ class CoordinationController extends Controller
     
     public function create(Request $request)
     {
-        
-        //Validation
-        $this->validate($request, Post::$rules);
         $post = new Post;
         $form = $request->all();
         
@@ -34,15 +32,8 @@ class CoordinationController extends Controller
         $post->save();
         return redirect('user/profile/mypages?id='. $request->user()->id);
     }
-    
-    
-    
-    public function upload()
-    {
-        return view('user.coordination.upload');
-    }
-    
-    
+
+
     public function edit()
     {
         return view('user.coordination.edit');

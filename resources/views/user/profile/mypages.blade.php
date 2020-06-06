@@ -88,7 +88,7 @@
                                                              <div class="like">
                                                                  <span class="icon_font">
                                                                      <like
-                                                                     :post_id="{{ json_encode($post->id) }}"
+                                                                     
                                                                          
                                                                          
                                                                       ></like>

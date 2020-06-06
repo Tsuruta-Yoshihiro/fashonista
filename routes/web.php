@@ -30,25 +30,17 @@ Route::group(['prefix' => 'user', 'middleware' => 'auth'], function() {
     Route::post('coordination/edit', 'User\CoordinationController@update');
     
     Route::get('coordination/delete', 'User\CoordinationController@delete');
-
-    
-    
-    
     Route::get('profile/create', 'User\ProfileController@add');
     Route::post('profile/create', 'User\ProfileController@create');
-    
-    
-    
     Route::get('profile/edit', 'User\ProfileController@edit');
     Route::post('profile/edit', 'User\ProfileController@update');
-    
     Route::get('profile/mypages', 'User\ProfileController@mypages');
     Route::get('profile/toppages', 'User\ProfileController@toppages');
     Route::get('profile/othermypages', 'User\ProfileController@othermypages');
     
-    
-    //Route::post('/posts/{psot}/likes', 'AjaxlikeController@store');
-    //Route::post('/post/{post}/likes/{like}', 'AjaxlikeController@destroy');
+    //いいね！
+    Route::put('/{post}/like', 'AjaxlikeController@like')->name('like');
+    Route::delete('/{post}/like', 'AjaxlikeController@unlike')->name('unlike');
     
 });
 

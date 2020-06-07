@@ -85,8 +85,8 @@
                                                              <img src="{{ secure_asset('storage/image/' . $post->image_path) }}"></img>
                                                          </div>     
                                                          <div class="meta clearfix">
-                                                             <div class="like">
-                                                                 <span class="icon_font">
+                                                             <div class="card-body pt-0 pb-2 pl-1">
+                                                                 <div class="like_icon">
                                                                      <like
                                                                        :initial-is-liked-by='@json($post->isLikedBy(Auth::user()))'
                                                                        :initial-likes-conut='@json($post->likes_count)'

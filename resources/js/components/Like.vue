@@ -20,7 +20,7 @@
                 default: false,
             },
             
-            initialCountLikes: {
+            initiallikesCount: {
                 type: Number,
                 default: 0,
             },
@@ -38,28 +38,28 @@
         data() {
             return {
             isLikeBy: this.initialIsLikeBy,
-            countLikes: this.initialCountLikes,
+            likesCount: this.initiallikesCount,
             gotToLike: false,
             }
         },
         
         methods: {
-            Likeclick({ id,liked }) {
-              //if (!this.authorized) {
-                  //alert('いいね機能を使うにはログインしてください。')
-                  //return
-              //}
+            Likeclick() {
+              if (!this.authorized) {
+                  alert('いいね機能を使うにはログインしてください。')
+                  return
+              }
               
               this.isLikedBy
-              ? this.unlike(id)
-              : this.like(id)
+              ? this.unlike()
+              : this.like()
             },
             
-            async like(id) {
+            async like() {
                 const response = await axios.put(this.endpoint)
                 
                 this.isLikeBy = true
-                this.countLikes = response.data.countLikes
+                this.likesCount = response.data.likesCount
                 this.gotToLike = true
             },
             
@@ -68,7 +68,7 @@
                 const response = await axios.delete(this.endpoint)
                 
                 this.isLikedBy = false
-                this.countLikes = response.data.countLikes
+                this.likesCount = response.data.likesCount
                 this.gotToLike = false
             },
         },

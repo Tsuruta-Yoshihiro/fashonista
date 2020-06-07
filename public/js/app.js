@@ -1948,7 +1948,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       type: Boolean,
       "default": false
     },
-    initialCountLikes: {
+    initiallikesCount: {
       type: Number,
       "default": 0
     },
@@ -1963,16 +1963,17 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   data: function data() {
     return {
       isLikeBy: this.initialIsLikeBy,
-      countLikes: this.initialCountLikes,
+      likesCount: this.initiallikesCount,
       gotToLike: false
     };
   },
   methods: {
     Likeclick: function Likeclick() {
-      //if (!this.authorized) {
-      //alert('いいね機能を使うにはログインしてください。')
-      //return
-      //}
+      if (!this.authorized) {
+        alert('いいね機能を使うにはログインしてください。');
+        return;
+      }
+
       this.isLikedBy ? this.unlike() : this.like();
     },
     like: function like() {
@@ -1990,7 +1991,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 2:
                 response = _context.sent;
                 _this.isLikeBy = true;
-                _this.countLikes = response.data.countLikes;
+                _this.likesCount = response.data.likesCount;
                 _this.gotToLike = true;
 
               case 6:
@@ -2016,7 +2017,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 2:
                 response = _context2.sent;
                 _this2.isLikedBy = false;
-                _this2.countLikes = response.data.countLikes;
+                _this2.likesCount = response.data.likesCount;
                 _this2.gotToLike = false;
 
               case 6:
@@ -50336,45 +50337,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_Like__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/Like */ "./resources/js/components/Like.vue");
 
 
- //import axios from 'axios';
 
-/**
- * First we will load all of this project's JavaScript dependencies which
- * includes Vue and other libraries. It is a great starting point when
- * building robust, powerful web applications using Vue and Laravel.
- */
 
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
-/*
-window.Vue = require('vue');
-window.axios = require("axios");
-
-window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest'
-
-const token = document.head.querySelector('meta[name="csrf-token"]')
-if (token) {
-  window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content
-}
-*/
-
-/**
- * The following block of code may be used to automatically register your
- * Vue components. It will recursively scan this directory for the Vue
- * components and automatically register them with their "basename".
- *
- * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
- */
-// const files = require.context('./', true, /\.vue$/i);
-// files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
-//Vue.component('example-component', require('./components/ExampleComponent.vue').default);
-//Vue.component('like', require('./components/Like.vue').default);
-
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
-
 
 var app = new vue__WEBPACK_IMPORTED_MODULE_1___default.a({
   el: '#app',

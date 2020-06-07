@@ -88,10 +88,13 @@
                                                              <div class="like">
                                                                  <span class="icon_font">
                                                                      <like
-                                                                     
-                                                                         
-                                                                         
-                                                                      ></like>
+                                                                       :initial-is-liked-by='@json($post->isLikedBy(Auth::user()))'
+                                                                       :initial-likes-conut='@json($post->likes_count)'
+                                                                       :authorized='@json(Auth::check())'
+                                                                       endpoint="{{ route('posts.like', ['post' => $post]) }}"
+                                                                       
+                                                                     >
+                                                                     </like>
                                                                  </span>
                                                              </div>
                                                         </div>

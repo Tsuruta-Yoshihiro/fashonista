@@ -1,10 +1,12 @@
 <?php
 
 namespace App\Http\Controllers\User;
-use Illuminate\Http\Request;
+
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use App\Http\Requests\PostRequest;
 use App\Post;
-use App\Like;
+
 
 class CoordinationController extends Controller
 {
@@ -32,6 +34,34 @@ class CoordinationController extends Controller
         $post->save();
         return redirect('user/profile/mypages?id='. $request->user()->id);
     }
+    
+    
+    //いいね！
+    public function like(Request $request, Post $post)
+    {
+        
+        
+        $post->likes()->detach($request->user()->id);
+        $post->likes()->attach($request->user()->id);
+        
+        return [
+            'id' => $post->id,
+            'likesCount' => $post->likes_count,
+        ];
+    }
+    
+    public function unlike(Request $request, Post $post)
+    {
+        
+        $post->likes()->detach($request->user()->id);
+        
+        return [
+            'id' => $post->id,
+            'likesCount' => $post->likes_count,
+        ];
+    }
+
+
 
 
     public function edit()

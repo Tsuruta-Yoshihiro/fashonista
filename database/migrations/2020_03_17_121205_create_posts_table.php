@@ -17,7 +17,7 @@ class CreatePostsTable extends Migration
             $table->bigIncrements('id');
             
             $table->string('image_path');
-            $table->string('coordination_summary')->nullable();
+            $table->text('coordination_summary')->nullable();
             $table->string('item1')->nullable();
             $table->string('item2')->nullable();
             $table->string('item3')->nullable();

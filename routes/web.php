@@ -21,9 +21,6 @@ Route::group(['prefix' => 'user', 'middleware' => 'auth'], function() {
     Route::get('coordination/create', 'User\CoordinationController@add');
     Route::post('coordination/create', 'User\CoordinationController@create');
     
-    // ↓↓投稿一覧をmypagesへ表示させるため不要↓↓
-    //Route::get('coordination/upload' , 'User\CoordinationController@upload');
-    
     Route::get('coordination', 'User\CoordinationController@index');
     
     Route::get('coordination/edit', 'User\CoordinationController@edit');
@@ -38,12 +35,14 @@ Route::group(['prefix' => 'user', 'middleware' => 'auth'], function() {
     Route::get('profile/toppages', 'User\ProfileController@toppages');
     Route::get('profile/othermypages', 'User\ProfileController@othermypages');
     
-    //いいね！
-    Route::put('/{post}/like', 'AjaxlikeController@like')->name('like');
-    Route::delete('/{post}/like', 'AjaxlikeController@unlike')->name('unlike');
-    
 });
 
+Route::prefix('posts')->name('posts.')->group(function () {
+    //いいね！
+    Route::put('/{post}/like', 'CoordinationController@like')->name('like')->middleware('auth');
+    Route::delete('/{post}/like', 'CoordinationController@unlike')->name('unlike')->middleware('auth');
+
+});
 
 Auth::routes();
 

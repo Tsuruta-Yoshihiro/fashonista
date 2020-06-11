@@ -16,17 +16,11 @@ class CreateFollowsTable extends Migration
         Schema::create('follows', function (Blueprint $table) {
             $table->bigIncrements('id');
             
-            $table->bigInteger('follower_id')->unsigned();
-            $table->foreign('follower_id')
-                  ->references('id')
-                  ->on('users')
-                  ->onDelete('cascade');
+            $table->bigInteger('following_id')->unsigned();
+            $table->foreign('following_id')->references('id')->on('users')->onDelete('cascade');
                   
-            $table->bigInteger('followee_id')->unsigned();
-            $table->foreign('followee_id')
-                  ->references('id')
-                  ->on('users')
-                  ->onDelete('cascade');
+            $table->bigInteger('unfollow_id')->unsigned();
+            $table->foreign('unfollow_id')->references('id')->on('users')->onDelete('cascade');
                   
             $table->timestamps();
         });

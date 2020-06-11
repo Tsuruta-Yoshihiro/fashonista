@@ -36,12 +36,16 @@ Route::group(['prefix' => 'user', 'middleware' => 'auth'], function() {
     Route::get('profile/othermypages', 'User\ProfileController@othermypages');
     
 });
-
-Route::prefix('posts')->name('posts.')->group(function () {
     //いいね！
-    Route::put('/{post}/like', 'CoordinationController@like')->name('like')->middleware('auth');
-    Route::delete('/{post}/like', 'CoordinationController@unlike')->name('unlike')->middleware('auth');
+Route::prefix('posts')->name('posts.')->group(function () {
+    Route::put('/{post}/like', 'User\CoordinationController@like')->name('like')->middleware('auth');
+    Route::delete('/{post}/like', 'User\CoordinationController@unlike')->name('unlike')->middleware('auth');
 
+});
+    //フォロー
+Route::prefix('posts')->name('posts')->group(function() {
+    Route::get('ajax/following', 'User\AjaxfollowController@following');
+    Route::post('ajax/unfollow', 'User\AjaxfollowController@unfollow');
 });
 
 Auth::routes();

@@ -40,16 +40,28 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
     
+    //投稿
     public function posts(): HasMany
     {
         return $this->hasMany('App\Post');
     }
     
+    //いいね！
     public function likes(): BelongsToMany
     {
         return $this->belongsToMany('App\Post', 'likes')->withTimestamps();
     }
     
+    //フォロー
+    public function following(): BelongsToMany
+    {
+        return $this->belongsToMany('App\User', 'follows', 'following_id', 'unfollow_id')->withTimestamps();
+    }
     
+    //フォロワー
+    public function unfollow(): BelongsToMany
+    {
+        return $this->belongsToMany('App\User','follows', 'unfollow_id', 'following_id')->withTimestamps();
+    }
 }
 

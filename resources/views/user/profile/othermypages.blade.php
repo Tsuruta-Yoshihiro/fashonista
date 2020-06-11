@@ -21,23 +21,25 @@
                               </div>
                               
                               <!-- フォロー機能ボタン -->
-                              <div class="btn_follow">
-                                  <button v-if="currentFollowing" type="button" class="btn btn-point btn-raised" @click="unfollow">
-                                      <div v-if="sending" class="spinner-border spinner-border-sm" role="status">
-                                          <span class="sr-only">Sending...</span>
-                                      </div>
-                                      <div v-else>フォロー中</div>
-                                  </button>
-                                  <button v-else type="button" class="btn btn-default btn raised" @click="follow">
-                                      <div v-if="sending" class="spinner-border spinner-border-sm" role="status">
-                                          <span class="sr-only">Sending...</span>
-                                      </div>
-                                      <div v-else>
-                                          フォローする
-                                      </div>
-                                  </button>
-                              </div>
-                              
+                             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+                             <script type="text/javascript">
+                                <div class="btn_follow">
+                                    <button v-if="currentFollowing" type="button" class="btn btn-point btn-raised" @click="unfollow">
+                                        <div v-if="sending" class="spinner-border spinner-border-sm" role="status">
+                                            <span class="sr-only">Sending...</span>
+                                        </div>
+                                        <div v-else>フォロー中</div>
+                                    </button>
+                                    <button v-else type="button" class="btn btn-default btn raised" @click="follow">
+                                        <div v-if="sending" class="spinner-border spinner-border-sm" role="status">
+                                            <span class="sr-only">Sending...</span>
+                                        </div>
+                                        <div v-else>
+                                            フォローする
+                                        </div>
+                                    </button>
+                                </div>
+                             </script>
                         　</div>
                       </div>
                   </header>

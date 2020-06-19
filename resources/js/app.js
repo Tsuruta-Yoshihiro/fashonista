@@ -1,16 +1,14 @@
-
 import './bootstrap'
 import Vue from 'vue'
-import Like from './components/Like'
+import PostLike from './components/PostLike'
 
 
-require('./bootstrap');
 
 
 const app = new Vue({
-    el: '#app',
+  el: '#app',
     components: {
-      Like,
+      PostLike,
       
     }
-});
+})

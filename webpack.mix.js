@@ -12,9 +12,7 @@ const mix = require('laravel-mix');
  */
 
 mix.js('resources/js/app.js', 'public/js')
-   .js('resources/js/post.js', 'public/js')
-   //.js('resources/js/mypages.js', 'public/js')
-   //.js('resources/js/like.js', 'public/js')
+   
    
     .sass('resources/sass/app.scss', 'public/css')
     .sass('resources/sass/post.scss', 'public/css')
@@ -23,4 +21,6 @@ mix.js('resources/js/app.js', 'public/js')
     .sass('resources/sass/toppages.scss', 'public/css')
     .sass('resources/sass/upload.scss' , 'public/css')
     .sass('resources/sass/othermypages.scss' , 'public/css')
-    .sass('resources/sass/profile_edit.scss' , 'public/css');
+    .sass('resources/sass/profile_edit.scss' , 'public/css')
+    
+    .version();

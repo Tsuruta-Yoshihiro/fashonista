@@ -43,9 +43,9 @@ Route::prefix('posts')->name('posts.')->group(function () {
 
 });
     //フォロー
-Route::prefix('posts')->name('posts')->group(function() {
-    Route::get('ajax/following', 'User\AjaxfollowController@following');
-    Route::post('ajax/unfollow', 'User\AjaxfollowController@unfollow');
+Route::prefix('users')->name('users')->group(function() {
+    Route::post('follow', 'User\FollowController@follow');
+    Route::post('unfollow', 'User\FollowController@unfollow');
 });
 
 Auth::routes();

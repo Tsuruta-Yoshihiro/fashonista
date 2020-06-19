@@ -87,14 +87,14 @@
                                                          <div class="meta clearfix">
                                                              <div class="card-body pt-0 pb-2 pl-1">
                                                                  <div class="like_icon">
-                                                                     <like
+                                                                     <post-like
                                                                        :initial-is-liked-by='@json($post->isLikedBy(Auth::user()))'
-                                                                       :initial-likes-conut='@json($post->likes_count)'
+                                                                       :initial-likes-count='@json($post->likescount)'
                                                                        :authorized='@json(Auth::check())'
                                                                        endpoint="{{ route('posts.like', ['post' => $post]) }}"
                                                                        
                                                                      >
-                                                                     </like>
+                                                                     </post-like>
                                                                  </span>
                                                              </div>
                                                         </div>

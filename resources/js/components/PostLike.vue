@@ -3,24 +3,26 @@
        <button
           type="button"
           class="btn m-0 p-1 shadow-none"
-          >
+        >
             <i class="fas fa-heart mr-1"
+               
                @click="Likeclick"
             />
         </button>
-       {{ likes_count }}
+       {{ likescount }}
    </div>
 </template>
 
 <script>
     export default {
         props: {
-            initialIsLikeBy: {
+            initialIsLikedBy: {
+                
                 type: Boolean,
                 default: false,
             },
             
-            initiallikesCount: {
+            initialLikesCount: {
                 type: Number,
                 default: 0,
             },
@@ -37,8 +39,8 @@
         
         data() {
             return {
-            isLikeBy: this.initialIsLikeBy,
-            likesCount: this.initiallikesCount,
+            isLikedBy: this.initialIsLikedBy,
+            likescount: this.initialLikesCount,
             gotToLike: false,
             }
         },
@@ -57,8 +59,9 @@
             
             async like() {
                 const response = await axios.put(this.endpoint)
+
                 
-                this.isLikeBy = true
+                this.isLikedBy = true
                 this.likesCount = response.data.likesCount
                 this.gotToLike = true
             },

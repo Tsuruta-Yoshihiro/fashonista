@@ -18,7 +18,7 @@
                             </select>
                             
                             <!-- 日 -->
-                            <select name="birth-day" wire:model="day" wire:change="onChange">
+                            <select name="birth_day" wire:model="day" wire:change="onChange">
                                 <option></option>
                                 @for($i = 1 ; $i <= $last_day_of_month ; $i++)
                                 <option value="{{ $i }}">{{ $i }}日</option>

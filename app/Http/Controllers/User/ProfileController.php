@@ -1,9 +1,16 @@
 <?php
 
 namespace App\Http\Controllers\User;
+
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Auth\RegisterController;
+use Illuminate\Support\Facades\Auth;
+use Intervention\Image\ImageManagerStatic as Image;
+use Illuminate\Support\Facades\Storage;
 use App\Post;
+use APP\User;
+
 
 class ProfileController extends Controller
 {
@@ -17,21 +24,71 @@ class ProfileController extends Controller
         return redirect('user.profile.create');
     }
     
-    public function edit()
+    //プロフィール画像登録
+    public function index(Request $request)
     {
-        return view('user.profile.edit');
+        $auth = Auth::user();
+        $user = User::all();
+        $param = [
+            'auth'=>$auth,
+            'users'=>$users
+        ];
+        return view('user.index',$param);
     }
     
-    public function update()
+    
+    //プロフィール更新
+    public function edit(Request $request)
     {
-        return redirect('user.profile.edit');
+        //ユーザー情報の取得
+        $auth = Auth::user();
+        $param = [
+            'auth'=>$auth,
+        ];
+        return view('user.profile.edit', $param);
+    }
+    
+    
+    public function update(Request $request)
+    {
+        //対象レコードの取得
+        $user = User::find(Auth::user()->id);
+        $user_form = $request->all();
+        
+        //誕生日更新
+        unset($user_form['_token']);
+        unset($user_form['birth_year']);
+        unset($user_form['birth_month']);
+        unset($user_form['birth_day']);
+        $birthday = $request->birth_year . sprintf('%02d', $request->birth_month) . sprintf('%02d', $request->birth_day);
+        $user_form->birthday = $birthday;
+        
+        
+        //プロフィール画像変更
+        $this->validate($request, [
+            'file' => 'required|file|image|mimes:jpeg,png'
+        ]);
+        
+        if(isset($uploadfile['thumbnail'])) {
+        $thumbnailname = $request->file('thumbnail')->storeAs('public/thumbnail');
+        $user->thumbnail = basename($thumbnailname);
+        }
+           
+        $auth->fill($user_form)->save();
+        return redirect('user/profile/mypages?id='. $request->user()->id);
     }
     
     
     public function mypages(Request $request)
     {
+        //ログインユーザー情報の取得
+        $auth = Auth::user();
+        
         $posts = Post::where('user_id', $request->id)->get();
-        return view('user.profile.mypages',["posts" =>$posts]);
+        return view('user.profile.mypages',[
+            'posts' =>$posts, 
+            'auth' =>$auth
+         ]);
     }
     
     
@@ -45,7 +102,7 @@ class ProfileController extends Controller
         
         return view('user.likes', [
             'user' => $user,
-            'posts' => $posts,
+            'posts' => $posts
         ]);
     }
     
@@ -60,7 +117,7 @@ class ProfileController extends Controller
         
         return view('user.followings', [
             'user' => $user,
-            'followings' => $followings,
+            'followings' => $followings
         ]);
     }
     
@@ -75,7 +132,7 @@ class ProfileController extends Controller
         
         return view('user.followers',[
             'user' => $user,
-            'followers' => $followers,
+            'followers' => $followers
         ]);
     }
     

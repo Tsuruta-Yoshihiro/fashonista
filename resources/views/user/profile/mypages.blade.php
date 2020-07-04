@@ -26,12 +26,20 @@
                                     <img src="//cdn.wimg.jp/content/no_image/profile/nu_200.gif" srcset="//cdn.wimg.jp/content/no_image/profile/nu_640.gif 2x" width="148" height="148">
                                 </p>
                             </div>
-                            <div class="btn_follow">
+                            <div class="btn_edit">
                                 <p class="btn_profileupdate">
                                     <a href=" {{ url('/user/profile/edit') }}" class="over">プロフィール変更</a>
                                 </p>
                             </div>
-                            
+                        </div>
+                        <div id="user_main">
+                            <section class="intro">
+                                <h1 class="user_name">{{ $auth->name }}</h1>
+                            </section>
+                        </div>
+                        
+                    </div>
+                    
                                 <div id ="gbl_body" class="clearfix">
                                     <div id="user_menu">
                                         <nav class="clearfix">
@@ -104,9 +112,7 @@
                                         </div>
                                     </form>
                         </div>
-                    </div>
                 </form>
-            </div>
         </div>
     </div>
 @endsection

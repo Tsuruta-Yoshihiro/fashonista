@@ -9,5 +9,5 @@ return [
     'Name' => 'ニックネーム',
     'Gender' => '性別',
     'Height' => '身長',
-    'Brthday' => '生年月日',
+    'Birthday' => '生年月日',
 ];

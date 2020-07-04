@@ -104,10 +104,10 @@
                         
                         <!-- 生年月日 -->
                         <div class="form-group row">
-                            <label for="birthday" class="col-md-4 col-form-label text-md-right">{{ __('messages.Brthday') }}</label>
+                            <label for="birthday" class="col-md-4 col-form-label text-md-right">{{ __('messages.Birthday') }}</label>
 
-                            <div>
-                                <div id="birthday" type="birthday" name="birthday" required autocomplete="new-birthday">
+                            <div class="col-md-6">
+                                <div id="birthday" type="birthday" name="birthday" required autocomplete="new_birthday">
                                 @livewire('birthday')
                                 </div>
                                 @livewireScripts

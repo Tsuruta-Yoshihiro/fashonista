@@ -63,7 +63,7 @@ class RegisterController extends Controller
      */
     protected function create(array $data) 
     {
-        $birthday = $data['birth_year'] . sprintf('%02d', $data['birth_month']) . sprintf('%02d', $data['birth-day']);
+        $birthday = $data['birth_year'] . sprintf('%02d', $data['birth_month']) . sprintf('%02d', $data['birth_day']);
         
         return User::create([
             

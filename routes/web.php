@@ -20,17 +20,18 @@ Route::group(['prefix' => 'user', 'middleware' => 'auth'], function() {
     
     Route::get('coordination/create', 'User\CoordinationController@add');
     Route::post('coordination/create', 'User\CoordinationController@create');
-    
     Route::get('coordination', 'User\CoordinationController@index');
-    
     Route::get('coordination/edit', 'User\CoordinationController@edit');
     Route::post('coordination/edit', 'User\CoordinationController@update');
-    
     Route::get('coordination/delete', 'User\CoordinationController@delete');
+    
     Route::get('profile/create', 'User\ProfileController@add');
     Route::post('profile/create', 'User\ProfileController@create');
-    Route::get('profile/edit', 'User\ProfileController@edit');
-    Route::post('profile/edit', 'User\ProfileController@update');
+    
+    Route::get('/profile', 'User\ProfileController@index')->name('user.index');
+    Route::get('profile/edit', 'User\ProfileController@edit')->name('user.edit');
+    Route::post('profile/edit', 'User\ProfileController@update')->name('user.update');
+    
     Route::get('profile/mypages', 'User\ProfileController@mypages');
     Route::get('profile/toppages', 'User\ProfileController@toppages');
     Route::get('profile/othermypages', 'User\ProfileController@othermypages');
@@ -44,8 +45,8 @@ Route::prefix('posts')->name('posts.')->group(function () {
 });
     //フォロー
 Route::prefix('users')->name('users')->group(function() {
-    Route::post('follow', 'User\FollowController@follow');
-    Route::post('unfollow', 'User\FollowController@unfollow');
+    Route::post('follow', 'User\ProfileController@follow');
+    Route::post('unfollow', 'User\ProfileController@unfollow');
 });
 
 Auth::routes();

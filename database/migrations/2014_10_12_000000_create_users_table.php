@@ -23,6 +23,7 @@ class CreateUsersTable extends Migration
             $table->string('gender');
             $table->string('height');
             $table->string('birthday');
+            $table->string('thumbnail')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
@@ -35,6 +36,8 @@ class CreateUsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn('thumbnail');
+        });
     }
 }

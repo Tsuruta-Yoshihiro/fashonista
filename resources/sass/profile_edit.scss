@@ -49,9 +49,19 @@ body {
   background-color: rgba(0, 0, 0, 0.25);
 }
 
-.btn-primary {
-  width: 230px;
+#thumbnail .img img {
+  border-radius: 50%;
+  border: 1px #ddd solid;
+
+}
+
+.btnsubmit {
   text-align: center;
+}
+
+#submit_button {
+  width: 250px;
   position: center;
+  text-align: center;
 }
 

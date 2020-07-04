@@ -34,25 +34,17 @@
                                        <div class="section_main clearfix">
                                            <div class="sub">
                                                
-                                                 <!--jquery読み込み<img_box>、画像表示-->
+                                               <!--jquery読み込み[ #img_box ]、画像表示-->
                                                <div id="img_box" class="img_box">
-                                                   
-                                                   <span class="ico"></span>
-                                                   <span class="txt" hidden>NO IMAGE</span>
-
                                                    <p class="img">
                                                      <img src(unknown) alt width="276" height="368">
                                                    </p>
                                                    <p class="loading">
                                                        <span>Loading...</span>
                                                    </p>
-                                                   
                                                </div>
                                            </div>
                                            <div class="main">
-                                               <!--
-                                               <div id="ajax_mes"></div>
-                                               -->
                                                
                                                <p class="select over">
                                                    <input type="file" class="form-control-file" id="file" name="image">
@@ -64,9 +56,6 @@
                                                    容量：10MB以内
                                                </p>
                                            </div>
-                                           <!--
-                                           <input type="hidden" name="coordination_imgfile" id="coordination_imgfile">
-                                           -->
                                        </div>
                                    </section>
                                    

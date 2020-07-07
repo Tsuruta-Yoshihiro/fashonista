@@ -10,7 +10,7 @@ use Intervention\Image\ImageManagerStatic as Image;
 use Illuminate\Support\Facades\Storage;
 use App\Post;
 use APP\User;
-
+use Validator;
 
 class ProfileController extends Controller
 {
@@ -24,20 +24,8 @@ class ProfileController extends Controller
         return redirect('user.profile.create');
     }
     
-    //プロフィール画像登録
-    public function index(Request $request)
-    {
-        $auth = Auth::user();
-        $user = User::all();
-        $param = [
-            'auth'=>$auth,
-            'users'=>$users
-        ];
-        return view('user.index',$param);
-    }
     
-    
-    //プロフィール更新
+    //プロフィール編集
     public function edit(Request $request)
     {
         //ユーザー情報の取得
@@ -48,33 +36,60 @@ class ProfileController extends Controller
         return view('user.profile.edit', $param);
     }
     
-    
+    //プロフィール更新
     public function update(Request $request)
     {
+        // Validator チェック
+        $rules = [
+            'name' => 'required',
+            'email' => 'required',
+            'thumbnail' => 'file|image|mimes:jpeg,png'
+        ];
+        
+        //エラーメッセージ
+        $messages = [
+            'name.required' => 'ユーザー名が未入力です',
+            'email.required' => 'メールアドレスが未入力です',
+        ];
+        
+        $validator = Validator::make($request->all(),$rules,$messages);
+        
+        if($validator->fails()){
+            return redirect('/user/profile/edit')
+                ->withErrors($validator)
+                ->withInput();
+        }
+        
         //対象レコードの取得
         $user = User::find(Auth::user()->id);
         $user_form = $request->all();
         
-        //誕生日更新
         unset($user_form['_token']);
-        unset($user_form['birth_year']);
-        unset($user_form['birth_month']);
-        unset($user_form['birth_day']);
-        $birthday = $request->birth_year . sprintf('%02d', $request->birth_month) . sprintf('%02d', $request->birth_day);
-        $user_form->birthday = $birthday;
+        unset($user_form['thumbnail']);
         
         
-        //プロフィール画像変更
-        $this->validate($request, [
-            'file' => 'required|file|image|mimes:jpeg,png'
-        ]);
+        //プロフィール画像登録＆更新
+        $file = $request->file('thumbnail');
         
-        if(isset($uploadfile['thumbnail'])) {
-        $thumbnailname = $request->file('thumbnail')->storeAs('public/thumbnail');
-        $user->thumbnail = basename($thumbnailname);
+          if(isset($file)) {
+            $thumbnail = $request->file('thumbnail')->store('public/thumbnail');
+            $user->thumbnail = basename($thumbnail);
+            
+            
+            $param = [
+                'name'=>$request->name,
+                'thumbnail'=>$thumbnail,
+            ];
+          }else{
+               $param = [
+                   'name'=>$request->name,
+                   ];
         }
-           
-        $auth->fill($user_form)->save();
+        
+        // レコードアップデート
+        $user->fill($user_form)->save();
+        
+        User::where('id',$request->user_id)->update($param);
         return redirect('user/profile/mypages?id='. $request->user()->id);
     }
     

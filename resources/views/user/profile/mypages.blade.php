@@ -21,9 +21,14 @@
                     
                     <div id="user_header" class="clearfix">
                         <div id="user_sub">
-                            <div class="image">
+                            <div class="thumbnail">
                                 <p class="img">
-                                    <img src="//cdn.wimg.jp/content/no_image/profile/nu_200.gif" srcset="//cdn.wimg.jp/content/no_image/profile/nu_640.gif 2x" width="148" height="148">
+                                    @if($auth->thumbnail)
+                                      <img src="{{ asset('/storage/thumbnail/'. $auth->thumbnail) }}" class="thumbnail" width="148" height="148">
+                                    @else
+                                      <img src="//cdn.wimg.jp/content/no_image/profile/nu_200.gif" srcset="//cdn.wimg.jp/content/no_image/profile/nu_640.gif 2x" width="148" height="148">
+                                      
+                                    @endif
                                 </p>
                             </div>
                             <div class="btn_edit">

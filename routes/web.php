@@ -28,9 +28,9 @@ Route::group(['prefix' => 'user', 'middleware' => 'auth'], function() {
     Route::get('profile/create', 'User\ProfileController@add');
     Route::post('profile/create', 'User\ProfileController@create');
     
-    Route::get('/profile', 'User\ProfileController@index')->name('user.index');
-    Route::get('profile/edit', 'User\ProfileController@edit')->name('user.edit');
-    Route::post('profile/edit', 'User\ProfileController@update')->name('user.update');
+    
+    Route::get('profile/edit', 'User\ProfileController@edit');
+    Route::post('profile/edit', 'User\ProfileController@update');
     
     Route::get('profile/mypages', 'User\ProfileController@mypages');
     Route::get('profile/toppages', 'User\ProfileController@toppages');

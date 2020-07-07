@@ -77,15 +77,17 @@ body {
   margin: 0 0 0 42px;
 }
 
-#user_header #user_sub .image {
+#user_header #user_sub .thumbnail {
   position: relative;
   width: 150px;
   height: 150px;
 }
 
-#user_header #user_sub .image p.img img {
+#user_header #user_sub .thumbnail p.img img {
   border-radius: 50%;
   border: 1px #ddd solid;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 
 #user_header #user_sub .btn_edit {

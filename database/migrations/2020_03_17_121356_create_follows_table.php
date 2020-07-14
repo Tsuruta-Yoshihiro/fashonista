@@ -17,12 +17,15 @@ class CreateFollowsTable extends Migration
             $table->bigIncrements('id');
             
             $table->bigInteger('follower_id')->unsigned();
-            $table->foreign('follower_id')->references('id')->on('users')->onDelete('cascade');
-                  
             $table->bigInteger('followee_id')->unsigned();
-            $table->foreign('followee_id')->references('id')->on('users')->onDelete('cascade');
-                  
             $table->timestamps();
+            
+            $table->foreign('follower_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('followee_id')->references('id')->on('users')->onDelete('cascade');
+            
+            // 組み合わせのダブりを禁止
+            $table->unique(['follower_id', 'followee_id']);   
+            
         });
     }
 

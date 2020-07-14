@@ -63,19 +63,14 @@ class ProfileController extends Controller
         //対象レコードの取得
         $user = User::find(Auth::user()->id);
         $user_form = $request->all();
-        
         unset($user_form['_token']);
         unset($user_form['thumbnail']);
-        
-        
         //プロフィール画像登録＆更新
         $file = $request->file('thumbnail');
         
           if(isset($file)) {
             $thumbnail = $request->file('thumbnail')->store('public/thumbnail');
             $user->thumbnail = basename($thumbnail);
-            
-            
             $param = [
                 'name'=>$request->name,
                 'thumbnail'=>$thumbnail,
@@ -85,7 +80,6 @@ class ProfileController extends Controller
                    'name'=>$request->name,
                    ];
         }
-        
         // レコードアップデート
         $user->fill($user_form)->save();
         
@@ -98,10 +92,13 @@ class ProfileController extends Controller
     {
         //ログインユーザー情報の取得
         $auth = Auth::user();
-        
+        $user = User::where('id', $request->id)->first();
+    
         $posts = Post::where('user_id', $request->id)->get();
         return view('user.profile.mypages',[
             'posts' =>$posts, 
+            'show_id' =>$request->id,
+            'user_info' => $user,
             'auth' =>$auth
          ]);
     }
@@ -121,74 +118,35 @@ class ProfileController extends Controller
         ]);
     }
     
-    
-    //フォロー
-    public function followings(string $name)
+    // フォロー
+    public function followings($name)
     {
-        $user = User::where('name', $name)->first()
-            ->load('followings.followers');
+        $user = User::where('name', $request->name)->first();
+        $followings = $user->followings();
         
-        $followings = $user->followings->sortByDesc('create_at');
+        return view('user.profile.mypages',[
+            'user' =>$user,
+            'users' => $followings,
+        ]);    
+    }
+    // フォロワー
+    public function followers($name)
+    {
+        $user = User::where('name', $request->name)->first();
+        $followers = $user->followers();
         
-        return view('user.followings', [
-            'user' => $user,
-            'followings' => $followings
-        ]);
+         return view('user.profile.mypages',[
+            'user' =>$user,
+            'users' => $followers,
+        ]);    
+        
     }
     
-    
-    //フォロワー
-    public function followers(string $name)
-    {
-        $user = User::where('name',$name)->first()
-            ->load('followers.followers');
-            
-        $followers = $user->followers->sortByDesc('create_at');
-        
-        return view('user.followers',[
-            'user' => $user,
-            'followers' => $followers
-        ]);
-    }
-    
-    public function follow(Request $request, string $name)
-    {
-        $user = User::where('name', $name)->first();
-        
-        if ($user->id === $request->user()->id)
-        {
-            return abort('404', 'Cannot follow yourself.');
-        }
-        
-        $request->user()->followings()->detach($user);
-        $request->user()->followings()->attach($user);
-        
-        return ['name' => $name];
-    }
-    
-    //フォローを外す
-    public function unfollow(Request $request, string $name)
-    {
-        $user = User::where('name', $name)->first();
-        
-        if ($user->id === $request->user()->id)
-        {
-            return abort('404', 'Cannot follow yourself.');
-        }
-        
-        $request->user()->followings()->detach($user);
-        return ['name' => $name];
-    }
-    
-    
+
     public function toppages()
     {
         return view('user.profile.toppages');
     }
     
-    public function othermypages()
-    {
-        return view('user.profile.othermypages');
-    }
 
 }

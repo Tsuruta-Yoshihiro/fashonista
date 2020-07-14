@@ -659,17 +659,6 @@ eval("// removed by extract-text-webpack-plugin//# sourceURL=[module]\n//# sourc
 
 /***/ }),
 
-/***/ "./resources/sass/othermypages.scss":
-/*!******************************************!*\
-  !*** ./resources/sass/othermypages.scss ***!
-  \******************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-eval("// removed by extract-text-webpack-plugin//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9yZXNvdXJjZXMvc2Fzcy9vdGhlcm15cGFnZXMuc2Nzcz83OTYzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBIiwiZmlsZSI6Ii4vcmVzb3VyY2VzL3Nhc3Mvb3RoZXJteXBhZ2VzLnNjc3MuanMiLCJzb3VyY2VzQ29udGVudCI6WyIvLyByZW1vdmVkIGJ5IGV4dHJhY3QtdGV4dC13ZWJwYWNrLXBsdWdpbiJdLCJzb3VyY2VSb290IjoiIn0=\n//# sourceURL=webpack-internal:///./resources/sass/othermypages.scss\n");
-
-/***/ }),
-
 /***/ "./resources/sass/post.scss":
 /*!**********************************!*\
   !*** ./resources/sass/post.scss ***!
@@ -699,7 +688,7 @@ eval("// removed by extract-text-webpack-plugin//# sourceURL=[module]\n//# sourc
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-eval("// removed by extract-text-webpack-plugin//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9yZXNvdXJjZXMvc2Fzcy9wcm9maWxlX2VkaXQuc2Nzcz9lNzhlIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBIiwiZmlsZSI6Ii4vcmVzb3VyY2VzL3Nhc3MvcHJvZmlsZV9lZGl0LnNjc3MuanMiLCJzb3VyY2VzQ29udGVudCI6WyIvLyByZW1vdmVkIGJ5IGV4dHJhY3QtdGV4dC13ZWJwYWNrLXBsdWdpbiJdLCJzb3VyY2VSb290IjoiIn0=\n//# sourceURL=webpack-internal:///./resources/sass/profile_edit.scss\n");
+eval("// removed by extract-text-webpack-plugin//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9yZXNvdXJjZXMvc2Fzcy9wcm9maWxlX2VkaXQuc2Nzcz82ZmIwIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBIiwiZmlsZSI6Ii4vcmVzb3VyY2VzL3Nhc3MvcHJvZmlsZV9lZGl0LnNjc3MuanMiLCJzb3VyY2VzQ29udGVudCI6WyIvLyByZW1vdmVkIGJ5IGV4dHJhY3QtdGV4dC13ZWJwYWNrLXBsdWdpbiJdLCJzb3VyY2VSb290IjoiIn0=\n//# sourceURL=webpack-internal:///./resources/sass/profile_edit.scss\n");
 
 /***/ }),
 
@@ -726,9 +715,9 @@ eval("// removed by extract-text-webpack-plugin//# sourceURL=[module]\n//# sourc
 /***/ }),
 
 /***/ 0:
-/*!**************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** multi ./resources/js/app.js ./resources/sass/app.scss ./resources/sass/post.scss ./resources/sass/profile.scss ./resources/sass/mypages.scss ./resources/sass/toppages.scss ./resources/sass/upload.scss ./resources/sass/othermypages.scss ./resources/sass/profile_edit.scss ***!
-  \**************************************************************************************************************************************************************************************************************************************************************************************/
+/*!***************************************************************************************************************************************************************************************************************************************************!*\
+  !*** multi ./resources/js/app.js ./resources/sass/app.scss ./resources/sass/post.scss ./resources/sass/profile.scss ./resources/sass/mypages.scss ./resources/sass/toppages.scss ./resources/sass/upload.scss ./resources/sass/profile_edit.scss ***!
+  \***************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -739,7 +728,6 @@ __webpack_require__(/*! /home/ec2-user/environment/fashonista/resources/sass/pro
 __webpack_require__(/*! /home/ec2-user/environment/fashonista/resources/sass/mypages.scss */"./resources/sass/mypages.scss");
 __webpack_require__(/*! /home/ec2-user/environment/fashonista/resources/sass/toppages.scss */"./resources/sass/toppages.scss");
 __webpack_require__(/*! /home/ec2-user/environment/fashonista/resources/sass/upload.scss */"./resources/sass/upload.scss");
-__webpack_require__(/*! /home/ec2-user/environment/fashonista/resources/sass/othermypages.scss */"./resources/sass/othermypages.scss");
 module.exports = __webpack_require__(/*! /home/ec2-user/environment/fashonista/resources/sass/profile_edit.scss */"./resources/sass/profile_edit.scss");
 
 

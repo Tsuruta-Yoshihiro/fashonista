@@ -31,23 +31,41 @@ Route::group(['prefix' => 'user', 'middleware' => 'auth'], function() {
     
     Route::get('profile/edit', 'User\ProfileController@edit');
     Route::post('profile/edit', 'User\ProfileController@update');
+    Route::get('profile/delete', 'User\ProfileController@delete');
     
     Route::get('profile/mypages', 'User\ProfileController@mypages');
     Route::get('profile/toppages', 'User\ProfileController@toppages');
-    Route::get('profile/othermypages', 'User\ProfileController@othermypages');
     
 });
+
     //いいね！
 Route::prefix('posts')->name('posts.')->group(function () {
     Route::put('/{post}/like', 'User\CoordinationController@like')->name('like')->middleware('auth');
     Route::delete('/{post}/like', 'User\CoordinationController@unlike')->name('unlike')->middleware('auth');
 
 });
+
     //フォロー
-Route::prefix('users')->name('users')->group(function() {
-    Route::post('follow', 'User\ProfileController@follow');
-    Route::post('unfollow', 'User\ProfileController@unfollow');
-});
+Route::resource('users', 'User\ProfileController', ['only' => ['show']]);
+
+Route::group(['prefix' => 'users/{id}'], function () {
+    Route::get('followings', 'User\ProfileController@followings')->name('followings');
+    Route::get('followers', 'User\ProfileController@followers')->name('followers');
+    });
+
+Route::group(['middleware' => 'auth'], function () {
+    //Route::post('users', 'User\ProfileController@rename')->name('');
+    
+    Route::group(['prefix' => 'users/{id}'], function (){
+        Route::post('follow', 'User\FollowController@store')->name('follow');
+        Route::delete('unfollow', 'User\FollowController@destroy')->name('unfollow');
+        
+        Route::resource('posts', 'User\ProfileController', ['only' =>['create', 'store', 'destroy']]);
+    });
+    
+});    
+
+
 
 Auth::routes();
 

@@ -23,23 +23,53 @@
                         <div id="user_sub">
                             <div class="thumbnail">
                                 <p class="img">
-                                    @if($auth->thumbnail)
-                                      <img src="{{ asset('/storage/thumbnail/'. $auth->thumbnail) }}" class="thumbnail" width="148" height="148">
+                                    @if($auth->id == $show_id)
+                                        @if($auth->thumbnail)
+                                          <img src="{{ asset('/storage/thumbnail/'. $auth->thumbnail) }}" class="thumbnail" width="148" height="148">
+                                        @else
+                                          <img src="//cdn.wimg.jp/content/no_image/profile/nu_200.gif" srcset="//cdn.wimg.jp/content/no_image/profile/nu_640.gif 2x" width="148" height="148">
+                                        @endif
                                     @else
-                                      <img src="//cdn.wimg.jp/content/no_image/profile/nu_200.gif" srcset="//cdn.wimg.jp/content/no_image/profile/nu_640.gif 2x" width="148" height="148">
-                                      
-                                    @endif
+                                        @if($user_info->thumbnail)
+                                          <img src="{{ asset('/storage/thumbnail/'. $user_info->thumbnail) }}" class="thumbnail" width="148" height="148">
+                                        @else
+                                          <img src="//cdn.wimg.jp/content/no_image/profile/nu_200.gif" srcset="//cdn.wimg.jp/content/no_image/profile/nu_640.gif 2x" width="148" height="148">
+                                        @endif
+                                    @endif    
                                 </p>
                             </div>
+                            
+                            
+                            @if($auth->id == $show_id)
                             <div class="btn_edit">
                                 <p class="btn_profileupdate">
                                     <a href=" {{ url('/user/profile/edit') }}" class="over">プロフィール変更</a>
                                 </p>
                             </div>
+                            @else
+                            <div class="btn_follow">
+                                @if (auth()->user()->is_following($user->id))
+                                    <form action="{{ route('unfollow', ['id' => $user->id]) }}" method="POST">
+                                        {{ method_field('DELETE') }}
+                                        <button type="submit" class="btn btn-danger">フォロー解除</button>
+                                    </form>
+                                @else
+                                    <form action="{{ route('follow', ['id' => $user->id]) }}" method="POST">
+                                        <button type="submit" class="btn btn-primary">フォローする</button>
+                                    </form>
+                                @endif
+                            </div>
+                            @endif
                         </div>
                         <div id="user_main">
                             <section class="intro">
-                                <h1 class="user_name">{{ $auth->name }}</h1>
+                               <h1 class="user_name">
+                                @if($auth->id == $show_id)
+                                 {{ $auth->name }}
+                                @else
+                                 {{ $user_info->name }}
+                                @endif
+                                </h1>
                             </section>
                         </div>
                         

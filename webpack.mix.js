@@ -20,7 +20,6 @@ mix.js('resources/js/app.js', 'public/js').sourceMaps()
     .sass('resources/sass/mypages.scss', 'public/css')
     .sass('resources/sass/toppages.scss', 'public/css')
     .sass('resources/sass/upload.scss' , 'public/css')
-    .sass('resources/sass/othermypages.scss' , 'public/css')
     .sass('resources/sass/profile_edit.scss' , 'public/css')
     
     .version();

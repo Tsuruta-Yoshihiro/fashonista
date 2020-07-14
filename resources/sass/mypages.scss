@@ -96,6 +96,26 @@ body {
   margin: 18px auto 0 auto;
 }
 
+
+//フォローボタン
+#user_header #user_sub .btn_follow {
+  width: 134px;
+  margin: 18px auto 0 auto;
+}
+
+.btn_follow .btn {
+  display: block;
+  position: relative;
+  padding: 8px 0 8px 0;
+  text-align: center;
+  color:#fff;
+  background-color: #2490d0;
+  font-weight: bold;
+  border: 1px #1e78ad solid;
+  border-radius: 2px;
+  width: 134px;
+}
+
 .btn_edit p.btn_profileupdate {
   position: relative;
 }

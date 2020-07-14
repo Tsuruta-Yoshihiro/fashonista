@@ -69,6 +69,7 @@ body {
 }
 
 #user_header #user_sub .btn_follow {
+  width: 134px;
   margin: 18px auto 0 auto;
 }
 

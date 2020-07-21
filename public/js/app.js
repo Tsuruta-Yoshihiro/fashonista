@@ -692,14 +692,14 @@ eval("// removed by extract-text-webpack-plugin//# sourceURL=[module]\n//# sourc
 
 /***/ }),
 
-/***/ "./resources/sass/toppages.scss":
-/*!**************************************!*\
-  !*** ./resources/sass/toppages.scss ***!
-  \**************************************/
+/***/ "./resources/sass/top.scss":
+/*!*********************************!*\
+  !*** ./resources/sass/top.scss ***!
+  \*********************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-eval("// removed by extract-text-webpack-plugin//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9yZXNvdXJjZXMvc2Fzcy90b3BwYWdlcy5zY3NzPzczYTQiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUEiLCJmaWxlIjoiLi9yZXNvdXJjZXMvc2Fzcy90b3BwYWdlcy5zY3NzLmpzIiwic291cmNlc0NvbnRlbnQiOlsiLy8gcmVtb3ZlZCBieSBleHRyYWN0LXRleHQtd2VicGFjay1wbHVnaW4iXSwic291cmNlUm9vdCI6IiJ9\n//# sourceURL=webpack-internal:///./resources/sass/toppages.scss\n");
+eval("// removed by extract-text-webpack-plugin//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9yZXNvdXJjZXMvc2Fzcy90b3Auc2Nzcz80ZmEyIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBIiwiZmlsZSI6Ii4vcmVzb3VyY2VzL3Nhc3MvdG9wLnNjc3MuanMiLCJzb3VyY2VzQ29udGVudCI6WyIvLyByZW1vdmVkIGJ5IGV4dHJhY3QtdGV4dC13ZWJwYWNrLXBsdWdpbiJdLCJzb3VyY2VSb290IjoiIn0=\n//# sourceURL=webpack-internal:///./resources/sass/top.scss\n");
 
 /***/ }),
 
@@ -715,9 +715,9 @@ eval("// removed by extract-text-webpack-plugin//# sourceURL=[module]\n//# sourc
 /***/ }),
 
 /***/ 0:
-/*!***************************************************************************************************************************************************************************************************************************************************!*\
-  !*** multi ./resources/js/app.js ./resources/sass/app.scss ./resources/sass/post.scss ./resources/sass/profile.scss ./resources/sass/mypages.scss ./resources/sass/toppages.scss ./resources/sass/upload.scss ./resources/sass/profile_edit.scss ***!
-  \***************************************************************************************************************************************************************************************************************************************************/
+/*!**********************************************************************************************************************************************************************************************************************************************!*\
+  !*** multi ./resources/js/app.js ./resources/sass/app.scss ./resources/sass/post.scss ./resources/sass/profile.scss ./resources/sass/mypages.scss ./resources/sass/top.scss ./resources/sass/upload.scss ./resources/sass/profile_edit.scss ***!
+  \**********************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -726,7 +726,7 @@ __webpack_require__(/*! /home/ec2-user/environment/fashonista/resources/sass/app
 __webpack_require__(/*! /home/ec2-user/environment/fashonista/resources/sass/post.scss */"./resources/sass/post.scss");
 __webpack_require__(/*! /home/ec2-user/environment/fashonista/resources/sass/profile.scss */"./resources/sass/profile.scss");
 __webpack_require__(/*! /home/ec2-user/environment/fashonista/resources/sass/mypages.scss */"./resources/sass/mypages.scss");
-__webpack_require__(/*! /home/ec2-user/environment/fashonista/resources/sass/toppages.scss */"./resources/sass/toppages.scss");
+__webpack_require__(/*! /home/ec2-user/environment/fashonista/resources/sass/top.scss */"./resources/sass/top.scss");
 __webpack_require__(/*! /home/ec2-user/environment/fashonista/resources/sass/upload.scss */"./resources/sass/upload.scss");
 module.exports = __webpack_require__(/*! /home/ec2-user/environment/fashonista/resources/sass/profile_edit.scss */"./resources/sass/profile_edit.scss");
 

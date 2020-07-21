@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Storage;
 use App\Post;
 use APP\User;
 use Validator;
+use App\Follow;
 
 class ProfileController extends Controller
 {
@@ -43,7 +44,7 @@ class ProfileController extends Controller
         $rules = [
             'name' => 'required',
             'email' => 'required',
-            'thumbnail' => 'file|image|mimes:jpeg,png'
+            'thumbnail' => 'file|image|mimes:jpeg,png,jpg'
         ];
         
         //エラーメッセージ
@@ -68,17 +69,13 @@ class ProfileController extends Controller
         //プロフィール画像登録＆更新
         $file = $request->file('thumbnail');
         
-          if(isset($file)) {
+          if(!empty($file)) {
             $thumbnail = $request->file('thumbnail')->store('public/thumbnail');
             $user->thumbnail = basename($thumbnail);
             $param = [
                 'name'=>$request->name,
-                'thumbnail'=>$thumbnail,
+                'thumbnail'=>$thumbnail
             ];
-          }else{
-               $param = [
-                   'name'=>$request->name,
-                   ];
         }
         // レコードアップデート
         $user->fill($user_form)->save();
@@ -87,66 +84,104 @@ class ProfileController extends Controller
         return redirect('user/profile/mypages?id='. $request->user()->id);
     }
     
-    
     public function mypages(Request $request)
     {
         //ログインユーザー情報の取得
         $auth = Auth::user();
         $user = User::where('id', $request->id)->first();
-    
+        
+        // ログインユーザーが表示しようとしているユーザーをフォローしていれば、trueを返す
+        $is_following = Follow::where('followee_id', $auth->id)->where('follower_id', $request->id)->exists();
+        
         $posts = Post::where('user_id', $request->id)->get();
-        return view('user.profile.mypages',[
-            'posts' =>$posts, 
-            'show_id' =>$request->id,
+        return view('user.profile.mypages', [
+            'posts' => $posts, 
+            'show_id' => $request->id,
             'user_info' => $user,
-            'auth' =>$auth
+            'auth' => $auth,
+            'is_following' => $is_following
          ]);
     }
     
+    // フォロー中ユーザー表示
+    public function followings($id)
+    {
+        $user = User::find(Auth::user()->id);
+        $followings = $user->followings()->paginate(12);
+        $date = [
+            'user' =>$user,
+            'users' => $followings
+        ];
+        $this->counts($user);
+        return view('user.profile.mypages', [
+            'count_followings' => $count_followings,
+            ]);
+    }
+    
+    // フォロワーユーザー表示
+    public function followers($id)
+    {
+        $user = User::find(Auth::user()->id);
+        $followers = $user->followers()->paginate(12);
+        $date = [
+            'user' =>$user,
+            'users' => $followers
+        ];
+        $this->counts($user);
+        return view('user.profile.mypages', [
+            'count_followers' => $count_followers,
+            ]);
+    }
+    
+    public function index(User $user)
+    {
+        $all_users = $user->getAllUsers(auth()->user()->id);
+
+        return view('user.profile.index', [
+            'all_users'  => $all_users
+        ]);
+    }
+    
+    // フォローする
+    public function follow(User $user)
+    {
+        $follower = auth()->user();
+        // フォローしているか
+        $is_following = $follower->is_following($user->id);
+        if(!$is_following) {
+            // フォローしていなければフォローする
+            $follower->follow($user->id);
+            return back();
+        }
+    }
+    
+    //フォロー解除
+    public function unfollow(User $user)
+    {
+        $follower = auth()->user();
+        // フォローしているか
+        $is_following = $follower->is_following($user->id);
+        if($is_following) {
+            // フォローしていればフォローを解除する
+            $follower->unfollow($user->id);
+            return back();
+        }
+    }
     
     //いいね
     public function likes(string $name)
     {
         $user = User::where('name', $name)->first()
             ->load(['likes.user', 'likes.likes', 'likes.posts']);
-        
         $posts = $user->likes->sortByDesc('create_at');
-        
         return view('user.likes', [
             'user' => $user,
             'posts' => $posts
         ]);
     }
     
-    // フォロー
-    public function followings($name)
+    public function top()
     {
-        $user = User::where('name', $request->name)->first();
-        $followings = $user->followings();
-        
-        return view('user.profile.mypages',[
-            'user' =>$user,
-            'users' => $followings,
-        ]);    
+        return view('user.profile.top');
     }
-    // フォロワー
-    public function followers($name)
-    {
-        $user = User::where('name', $request->name)->first();
-        $followers = $user->followers();
-        
-         return view('user.profile.mypages',[
-            'user' =>$user,
-            'users' => $followers,
-        ]);    
-        
-    }
-    
-
-    public function toppages()
-    {
-        return view('user.profile.toppages');
-    }
-    
-
 }

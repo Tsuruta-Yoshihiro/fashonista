@@ -1,5 +1,5 @@
-{{-- layouts/toppages.blade.phpを読み込む --}}
-@extends('layouts.toppages')
+{{-- layouts/top.blade.phpを読み込む --}}
+@extends('layouts.top')
 
 {{-- toppages.blade.phpの@yield('title')に'トップページ'を埋め込む --}}
 @section('title', 'トップページ')

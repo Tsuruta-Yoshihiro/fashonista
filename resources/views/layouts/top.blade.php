@@ -20,7 +20,7 @@
         
         <!--Style-->
         <link href="{{ secure_asset('css/app.css') }}" rel="stylesheet">
-        <link href="{{ secure_asset('css/toppages.css') }}" rel="stylesheet">
+        <link href="{{ secure_asset('css/top.css') }}" rel="stylesheet">
     </head>
     <body>
         <div id="app">

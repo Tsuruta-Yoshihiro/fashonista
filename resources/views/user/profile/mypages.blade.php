@@ -48,16 +48,16 @@
                             </div>
                             @else
                             <div class="btn_follow">
-                                @if (auth()->user()->is_following($user->id))
-                                    <form action="{{ route('unfollow', ['id' => $user->id]) }}" method="POST">
+                                 @if ($is_following)
+                                    <form action="{{ route('unfollow', ['id' => $user_info->id]) }}" method="POST">
                                         {{ method_field('DELETE') }}
                                         <button type="submit" class="btn btn-danger">フォロー解除</button>
                                     </form>
-                                @else
-                                    <form action="{{ route('follow', ['id' => $user->id]) }}" method="POST">
+                                 @else
+                                    <form action="{{ route('follow', ['id' => $user_info->id]) }}" method="POST">
                                         <button type="submit" class="btn btn-primary">フォローする</button>
                                     </form>
-                                @endif
+                                 @endif
                             </div>
                             @endif
                         </div>
@@ -72,9 +72,7 @@
                                 </h1>
                             </section>
                         </div>
-                        
                     </div>
-                    
                                 <div id ="gbl_body" class="clearfix">
                                     <div id="user_menu">
                                         <nav class="clearfix">
@@ -98,14 +96,14 @@
                                             <div class="sub">
                                                 <ul class="clearfix">
                                                     <li>
-                                                        <a href="/user/follower" rel="nofollow">
-                                                            <span>フォロワー</span>
+                                                        <a href="{{ route('followers', ['id' => $user_info->id]) }}" class="">フォロワー<br>
+                                                        <div class="badge badge-secondary">{{ $count_followers }}</div>   
                                                         </a>
                                                     </li>
                                                     
                                                     <li>
-                                                        <a href="/user/follow/">
-                                                            <span>フォロー</span>
+                                                        <a href="{{ route('followings', ['id' => $user_info->id]) }}" class="">フォロー中<br>
+                                                        <div class="badge badge-secondary">{{ $count_followings }}</div>
                                                         </a>
                                                     </li>
                                                 </ul>
@@ -115,7 +113,7 @@
                                 </div>
                                 <div id="content">
                                     <div class="btnAdd">
-                                        <a href=" {{ url('/user/coordination/create') }}" class="over">コーディネートを投稿する</a>
+                                         <a href=" {{ url('/user/coordination/create') }}" class="over">コーディネートを投稿する</a>
                                     </div>
                                 </div>
                                 　　

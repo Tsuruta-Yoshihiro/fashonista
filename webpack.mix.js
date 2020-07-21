@@ -18,8 +18,8 @@ mix.js('resources/js/app.js', 'public/js').sourceMaps()
     .sass('resources/sass/post.scss', 'public/css')
     .sass('resources/sass/profile.scss', 'public/css')
     .sass('resources/sass/mypages.scss', 'public/css')
-    .sass('resources/sass/toppages.scss', 'public/css')
+    .sass('resources/sass/top.scss', 'public/css')
     .sass('resources/sass/upload.scss' , 'public/css')
-    .sass('resources/sass/profile_edit.scss' , 'public/css')
+    .sass('resources/sass/profile_edit.scss' , 'public/css');
     
-    .version();
+    //.version();

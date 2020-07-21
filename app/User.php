@@ -41,7 +41,6 @@ class User extends Authenticatable
     ];
     
     
-    
     // 投稿
     public function posts(): HasMany
     {
@@ -54,53 +53,6 @@ class User extends Authenticatable
         return $this->belongsToMany('App\Post', 'likes')->withTimestamps();
     }
     
-    
-    // フォロー
-    public function followings(): BelongsToMany
-    {
-        return $this->belongsToMany('App\User', 'follows', 'follower_id', 'followee_id')->withTimestamps();
-    }
-    
-    // フォロワー
-    public function followers(): BelongsToMany
-    {
-        return $this->belongsToMany('App\User', 'follows', 'followee_id', 'follower_id')->withTimestamps();
-    }
-    
-    
-    public function is_following($userId)
-    {
-        return $this->followings()->where('followee_id', $userId)->exists();
-    }
-    
-    
-    // フォローする
-    public function follow($userId)
-    {
-        // すでにフォロー済みではないか？
-        $existing = $this->is_following($userId);
-        // フォローするIDが自身ではないか？
-        $myself = $this->id == $userId;
-        
-        // フォロー済みではないか、かつフォローIDが自身ではない場合、フォロー
-        if (!$existing && !$myself) {
-            $this->followings()->attach($userId);
-        }
-    }
-    
-    //フォロー解除
-    public function unfollow($userId)
-    {
-        // すでにフォロー済みではないか？
-        $existing = $this->is_following($userId);
-        // フォローするIDが自身ではないか？
-        $myself = $this->id == $userId;
-        
-        // すでにフォロー済みなら、フォローを外す
-        if (!$existing && !$myself) {
-            $this->followings()->detach($userId);
-        }
-    }
     
 }
 

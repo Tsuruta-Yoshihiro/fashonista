@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\User;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Follow;
+use App\User;
 
 class FollowController extends Controller
 {
@@ -10,14 +13,14 @@ class FollowController extends Controller
     public function store(Request $request)
     {
         
-        \Auth::user()->follow($id);
+        \Auth::user()->follow($request->id);
         return back();
     }
     // フォローを外す処理
-    public function destroy($id)
+    public function destroy(Request $request)
     {
         
-        \Auth::user()->unfollow($id);
+        \Auth::user()->unfollow($request->id);
         return back();
     }
 }

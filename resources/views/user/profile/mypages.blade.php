@@ -10,7 +10,6 @@
         <div class="row">
             <div class="col-md-8">
                 <h2>マイページ</h2>
-                <form action="{{ action('User\ProfileController@mypages') }}" method="get" enctype="multipart/form-data">
                     @if (count($errors) > 0)
                         <ul>
                             @foreach($errors->all() as $e)
@@ -49,14 +48,18 @@
                             @else
                             <div class="btn_follow">
                                  @if ($is_following)
-                                    <form action="{{ route('unfollow', ['id' => $user_info->id]) }}" method="POST">
-                                        {{ method_field('DELETE') }}
-                                        <button type="submit" class="btn btn-danger">フォロー解除</button>
-                                    </form>
+                                 <div>
+                                      <a href=" {{ action('User\FollowController@destroy', ['id' => $user_info->id]) }}" class="over" >
+                                          <button type="submit" class="btn btn-danger">フォロー解除</button>
+                                          
+                                      </a>
+                                 </div>
                                  @else
-                                    <form action="{{ route('follow', ['id' => $user_info->id]) }}" method="POST">
+                                 <div>
+                                    <a href=" {{ action('User\FollowController@store', ['id' => $user_info->id]) }}" class="over" >
                                         <button type="submit" class="btn btn-primary">フォローする</button>
-                                    </form>
+                                    </a>
+                                 </div>
                                  @endif
                             </div>
                             @endif
@@ -80,7 +83,7 @@
                                                 <ul class="clearfix">
                                                     
                                                     <li>
-                                                        <a href="/user/" rel="nofollow">
+                                                        <a href=" {{ url('/user/profile/mypages') }}" >{{ $count_posts }}
                                                             <span>コーディネート</span>
                                                         </a>
                                                     </li>
@@ -96,14 +99,14 @@
                                             <div class="sub">
                                                 <ul class="clearfix">
                                                     <li>
-                                                        <a href="{{ route('followers', ['id' => $user_info->id]) }}" class="">フォロワー<br>
-                                                        <div class="badge badge-secondary">{{ $count_followers }}</div>   
+                                                        <a href="{{ route('followers', ['id' => $user_info->id]) }}" >{{ $count_followers }}
+                                                            <span>フォロワー</span>
                                                         </a>
                                                     </li>
                                                     
                                                     <li>
-                                                        <a href="{{ route('followings', ['id' => $user_info->id]) }}" class="">フォロー中<br>
-                                                        <div class="badge badge-secondary">{{ $count_followings }}</div>
+                                                        <a href="{{ route('followings', ['id' => $user_info->id]) }}" >{{ $count_followings }}
+                                                            <span>フォロー中</span>
                                                         </a>
                                                     </li>
                                                 </ul>
@@ -145,7 +148,6 @@
                                         </div>
                                     </form>
                         </div>
-                </form>
         </div>
     </div>
 @endsection

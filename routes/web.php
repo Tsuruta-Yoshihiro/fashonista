@@ -52,17 +52,12 @@ Route::group(['prefix' => 'users/{id}'], function () {
 
 Route::group(['middleware' => 'auth'], function () {
     Route::group(['prefix' => 'users/{id}'], function () {
-        Route::post('follow', 'User\FollowController@store')->name('follow');
-        Route::delete('unfollow', 'User\FollowController@destroy')->name('unfollow');
+        Route::match(['get', 'post'], 'follow', 'User\FollowController@store')->name('follow');
+        Route::match(['get', 'post'], 'unfollow', 'User\FollowController@destroy')->name('unfollow');
         
         Route::resource('posts', 'User\ProfileController', ['only' =>['create', 'store', 'destroy']]);
     });
     
 });    
 
-
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
 }); 

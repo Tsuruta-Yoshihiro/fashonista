@@ -1,19 +1,19 @@
 {{-- layouts/post.blade.phpを読み込む --}}
 @extends('layouts.post')
 
-{{-- post.blade.phpの@yield('title')に'コーディネート投稿'を埋め込む --}}
-@section('title', 'コーディネイト投稿')
+{{-- upload.blade.phpの@yield('title')に'投稿編集'を埋め込む --}}
+@section('title', '投稿編集')
 
-{{-- post.blade.phpの@yield('content')に以下タグを埋め込む --}}
+{{-- create.blade.phpの@yield('content')に以下タグを埋め込む --}}
 @section('content')
     <div class="container">
         <div class="row">
             <div class="col-md-8">
-                <h2>コーディネート投稿</h2>
+                <h2></h2>
                 
                    <div id="gbl_body" class="clearfix">
                        <div id="content">
-                           <form action="{{ action('User\CoordinationController@create') }}" method="post" enctype="multipart/form-data">
+                           <form action="{{ action('User\CoordinationController@update') }}" method="post" enctype="multipart/form-data">
                                
                                
                                @if (count($errors) > 0)
@@ -36,11 +36,8 @@
                                                
                                                <!--jquery読み込み[ #img_box ]、画像表示-->
                                                <div id="img_box" class="img_box">
-                                                   <p class="img">
+                                                   <p class="img">{{ $coordination_form->image_path }}
                                                      <img src(unknown) alt width="276" height="368">
-                                                   </p>
-                                                   <p class="loading">
-                                                       <span>Loading...</span>
                                                    </p>
                                                </div>
                                            </div>
@@ -59,7 +56,7 @@
                                        </div>
                                    </section>
                                    
-                                　 <!-- アイテム追加 
+                                　 <!-- アイテム追加
                                    <div id="secondary">
                                        <section id="upload_item" class="clearfix" name="item">
                                            <div class="section_sub required">
@@ -107,7 +104,7 @@
                                <div id="processing">
                                    <ul class="clearfix">
                                        <il class="upload">
-                                         <input type="submit" class="btn btn-primary" value="投稿する">
+                                         <input type="submit" class="btn btn-primary" value="投稿内容を修正する">
                                        </il>
                                    </ul>
                                </div>

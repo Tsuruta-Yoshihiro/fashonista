@@ -22,7 +22,7 @@ class ProfileController extends Controller
     
     public function create()
     {
-        return redirect('user.profile.create');
+        return redirect('user/profile/create');
     }
     
     
@@ -152,14 +152,6 @@ class ProfileController extends Controller
             ]);
     }
     
-    public function index(User $user)
-    {
-        $all_users = $user->getAllUsers(auth()->user()->id);
-
-        return view('user.profile.index', [
-            'all_users'  => $all_users
-        ]);
-    }
     
     // フォローする
     public function follow(User $user)
@@ -201,6 +193,11 @@ class ProfileController extends Controller
     
     public function top()
     {
-        return view('user.profile.top');
+        return view('top');
+    }
+    
+    public function test()
+    {
+        return view('user.profile.test');
     }
 }

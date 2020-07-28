@@ -1,11 +1,7 @@
-{{-- layouts/mypages.blade.phpを読み込む --}}
 @extends('layouts.mypages')
-
-{{-- mypages.blade.phpの@yield('title')に'マイページ'を埋め込む --}}
 @section('title', 'マイページ')
-
-{{-- mypages.blade.phpの@yield('content')に以下タグを埋め込む --}}
 @section('content')
+
     <div class="container">
         <div class="row">
             <div class="col-md-8">
@@ -42,21 +38,21 @@
                             @if($auth->id == $show_id)
                             <div class="btn_edit">
                                 <p class="btn_profileupdate">
-                                    <a href=" {{ url('/user/profile/edit') }}" class="over">プロフィール変更</a>
+                                    <a href="{{ url('/user/profile/edit') }}" class="over">プロフィール変更</a>
                                 </p>
                             </div>
                             @else
                             <div class="btn_follow">
                                  @if ($is_following)
                                  <div>
-                                      <a href=" {{ action('User\FollowController@destroy', ['id' => $user_info->id]) }}" class="over" >
+                                      <a href="{{ action('User\FollowController@destroy', ['id' => $user_info->id]) }}" class="over" >
                                           <button type="submit" class="btn btn-danger">フォロー解除</button>
                                           
                                       </a>
                                  </div>
                                  @else
                                  <div>
-                                    <a href=" {{ action('User\FollowController@store', ['id' => $user_info->id]) }}" class="over" >
+                                    <a href="{{ action('User\FollowController@store', ['id' => $user_info->id]) }}" class="over" >
                                         <button type="submit" class="btn btn-primary">フォローする</button>
                                     </a>
                                  </div>
@@ -83,7 +79,9 @@
                                                 <ul class="clearfix">
                                                     
                                                     <li>
-                                                        <a href=" {{ url('/user/profile/mypages') }}" >{{ $count_posts }}
+                                                        <a href="{{ url('/user/profile/mypages') }}">
+                                                            
+                                                            {{ $count_posts }}
                                                             <span>コーディネート</span>
                                                         </a>
                                                     </li>
@@ -99,13 +97,17 @@
                                             <div class="sub">
                                                 <ul class="clearfix">
                                                     <li>
-                                                        <a href="{{ route('followers', ['id' => $user_info->id]) }}" >{{ $count_followers }}
+                                                        <a href="{{ route('followers', ['id' => $user_info->id]) }}" >
+                                                            
+                                                            {{ $count_followers }}
                                                             <span>フォロワー</span>
                                                         </a>
                                                     </li>
                                                     
                                                     <li>
-                                                        <a href="{{ route('followings', ['id' => $user_info->id]) }}" >{{ $count_followings }}
+                                                        <a href="{{ route('followings', ['id' => $user_info->id]) }}" >
+                                                            
+                                                            {{ $count_followings }}
                                                             <span>フォロー中</span>
                                                         </a>
                                                     </li>
@@ -116,7 +118,12 @@
                                 </div>
                                 <div id="content">
                                     <div class="btnAdd">
-                                         <a href=" {{ url('/user/coordination/create') }}" class="over">コーディネートを投稿する</a>
+                                         @if($auth->id == $show_id)
+                                           <!-- ログインしているユーザー自身であれば投稿ボタン表示する -->
+                                           <a href=" {{ url('/user/coordination/create') }}" class="over">コーディネートを投稿する</a>
+                                         @else
+                                           <!-- ログインしているユーザーではない場合は投稿ボタン表示しない -->
+                                         @endif
                                     </div>
                                 </div>
                                 　　
@@ -126,7 +133,9 @@
                                                  @foreach($posts as $post)
                                                      <li class="private">
                                                          <div class="imagelist">
-                                                             <img src="{{ secure_asset('storage/image/' . $post->image_path) }}"></img>
+                                                             <a href="{{ url('/user/coordination/edit') }}">
+                                                               <img src="{{ secure_asset('storage/image/' . $post->image_path) }}"></img>
+                                                             </a>
                                                          </div>     
                                                          <div class="meta clearfix">
                                                              <div class="card-body pt-0 pb-2 pl-1">

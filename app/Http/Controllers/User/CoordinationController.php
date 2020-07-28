@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\PostRequest;
 use App\Post;
 use APP\User;
+use Validator;
 
 class CoordinationController extends Controller
 {
@@ -35,12 +36,63 @@ class CoordinationController extends Controller
         return redirect('user/profile/mypages?id='. $request->user()->id);
     }
     
+     public function edit(Request $request)
+    {
+        $posts = Post::find($request->id);
+        
+        return view('user.coordination.edit', [
+            'coordination_form' => $posts,
+            ]);
+    }
+    
+    public function update(Request $request)
+    {
+        // Validator チェック
+        $rules = [
+            //'image_path' => 'required',
+        ];
+        
+        //エラーメッセージ
+        $messages = [
+            'image_path.required' => '画像が未入力です',
+        ];
+        
+        $validator = Validator::make($request->all(),$rules,$messages);
+        
+        if($validator->fails()){
+            return redirect('/user/coordination/edit')
+                ->withErrors($validator)
+                ->withInput();
+        }
+        // Post Modelからデータ取得
+        $posts = Post::find($request->id);
+        $coordination_form = $request->all();
+        if (isset($coordination_form['image'])) {
+            $path = $request->file('image')->store('public/image');
+            $posts->image_path = basename($path);
+            unset($coordination_form['image']);
+        } elseif (isset($request->remove)) {
+            $posts->image_path = null;
+            unset($coordination_form['remove']);
+        }
+        
+        unset($coordination_form['_token']);
+        $posts->fill($coordination_form)->save();
+        
+        return redirect('user/profile/mypages?id='. $request->user()->id);
+    }
+    
+    public function new_index()
+    {
+        $posts = Post::all();
+        return view('/', [
+            'posts' => $posts
+            ]);
+    }
     
     //いいね！
     public function like(Request $request, Post $post)
     {
-        
-        
         $post->likes()->detach($request->user()->id);
         $post->likes()->attach($request->user()->id);
         
@@ -52,7 +104,6 @@ class CoordinationController extends Controller
     
     public function unlike(Request $request, Post $post)
     {
-        
         $post->likes()->detach($request->user()->id);
         
         return [
@@ -61,18 +112,5 @@ class CoordinationController extends Controller
         ];
     }
 
-
-
-
-    public function edit()
-    {
-        return view('user.coordination.edit');
-    }
-    
-    public function update()
-    {
-        return redirect('user.coordination.edit');
-    }
-    
 
 }

@@ -16,6 +16,15 @@ class CoordinationController extends Controller
         return view('user.coordination.create');
     }
     
+    public function top(Request $request)
+    {
+        $posts = Post::all();
+        $posts = Post::where('user_id', $request->id)->get();
+        
+        return view('/top', [
+            'posts' => $posts
+            ]);
+    }
     
     public function create(Request $request)
     {
@@ -80,14 +89,6 @@ class CoordinationController extends Controller
         $posts->fill($coordination_form)->save();
         
         return redirect('user/profile/mypages?id='. $request->user()->id);
-    }
-    
-    public function new_index()
-    {
-        $posts = Post::all();
-        return view('/', [
-            'posts' => $posts
-            ]);
     }
     
     //いいね！

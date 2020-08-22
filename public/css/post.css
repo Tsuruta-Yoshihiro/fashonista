@@ -19,7 +19,8 @@ body {
 .navbar-brand {
   font-size: 40px;
   color: #333 !important;
-  position: center;
+  position: absolute;
+  left: 40%;
   margin-right: auto;
   margin-left: auto;
 }

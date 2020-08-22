@@ -95,7 +95,7 @@ class User extends Authenticatable
         $myself = $this->id == $user_id;
         
         // すでにフォロー済みなら、フォローを外す
-        if (!$existing && !$myself) {
+        if ($existing && !$myself) {
             $this->followings()->detach($user_id);
         }
     }

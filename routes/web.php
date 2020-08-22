@@ -14,8 +14,8 @@
 Route::get('/', function () {
     return view('top');
 });
+Route::get('/top', 'User\CoordinationController@top');
 
-Route::get('/top', 'User\CoordinationController@new_index')->name('new_index');
 
 Route::group(['prefix' => 'user', 'middleware' => 'auth'], function() {
     
@@ -32,7 +32,6 @@ Route::group(['prefix' => 'user', 'middleware' => 'auth'], function() {
     Route::post('profile/edit', 'User\ProfileController@update');
     Route::get('profile/delete', 'User\ProfileController@delete');
     Route::get('profile/mypages', 'User\ProfileController@mypages');
-    Route::get('/top', 'User\ProfileController@top');
     
     //test
     Route::get('profile/test', 'User\ProfileController@test');
@@ -54,13 +53,14 @@ Auth::routes();
 
 
     //フォロー関連
-Route::group(['prefix' => 'users/{id}'], function () {
+Route::group(['prefix' => 'user/{id}', 'middleware' => 'auth'], function () {
     Route::get('followings', 'User\ProfileController@followings')->name('followings');
     Route::get('followers', 'User\ProfileController@followers')->name('followers');
     });
 
+    // ログイン認証通過したユーザだけが「フォロー」「フォロー解除」を実行できる
 Route::group(['middleware' => 'auth'], function () {
-    Route::group(['prefix' => 'users/{id}'], function () {
+    Route::group(['prefix' => 'user/{id}'], function () {
         Route::match(['get', 'post'], 'follow', 'User\FollowController@store')->name('follow');
         Route::match(['get', 'post'], 'unfollow', 'User\FollowController@destroy')->name('unfollow');
         

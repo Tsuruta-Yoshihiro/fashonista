@@ -13,7 +13,6 @@
                             @endforeach
                         </ul>
                     @endif
-                    
                     <div id="user_header" class="clearfix">
                         <div id="user_sub">
                             <div class="thumbnail">
@@ -33,8 +32,6 @@
                                     @endif    
                                 </p>
                             </div>
-                            
-                            
                             @if($auth->id == $show_id)
                             <div class="btn_edit">
                                 <p class="btn_profileupdate">
@@ -47,7 +44,6 @@
                                  <div>
                                       <a href="{{ action('User\FollowController@destroy', ['id' => $user_info->id]) }}" class="over" >
                                           <button type="submit" class="btn btn-danger">フォロー解除</button>
-                                          
                                       </a>
                                  </div>
                                  @else
@@ -77,15 +73,12 @@
                                         <nav class="clearfix">
                                             <div class="main">
                                                 <ul class="clearfix">
-                                                    
                                                     <li>
                                                         <a href="{{ url('/user/profile/mypages') }}">
-                                                            
                                                             {{ $count_posts }}
                                                             <span>コーディネート</span>
                                                         </a>
                                                     </li>
-                                                    
                                                     <li>
                                                         <a href="/user/favorite/" rel="nofollow">
                                                             <span>お気に入り</span>
@@ -93,22 +86,18 @@
                                                     </li>
                                                 </ul>
                                             </div>
-                                            
                                             <div class="sub">
                                                 <ul class="clearfix">
                                                     <li>
                                                         <a href="{{ route('followers', ['id' => $user_info->id]) }}" >
-                                                            
                                                             {{ $count_followers }}
                                                             <span>フォロワー</span>
                                                         </a>
                                                     </li>
-                                                    
                                                     <li>
                                                         <a href="{{ route('followings', ['id' => $user_info->id]) }}" >
-                                                            
                                                             {{ $count_followings }}
-                                                            <span>フォロー中</span>
+                                                            <span>フォロー</span>
                                                         </a>
                                                     </li>
                                                 </ul>
@@ -126,7 +115,6 @@
                                          @endif
                                     </div>
                                 </div>
-                                　　
                                     <form action="{{ action('User\ProfileController@mypages') }}" method="get">
                                         <div id="main_list">
                                              <ul class="list clearfix">

@@ -19,7 +19,7 @@ mix.js('resources/js/app.js', 'public/js').sourceMaps()
     .sass('resources/sass/profile.scss', 'public/css')
     .sass('resources/sass/mypages.scss', 'public/css')
     .sass('resources/sass/top.scss', 'public/css')
-    .sass('resources/sass/upload.scss' , 'public/css')
-    .sass('resources/sass/profile_edit.scss' , 'public/css');
-    
+    .sass('resources/sass/profile_edit.scss' , 'public/css')
+    .sass('resources/sass/followings.scss' , 'public/css')
+    .sass('resources/sass/followers.scss' , 'public/css');
     //.version();

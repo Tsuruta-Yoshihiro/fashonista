@@ -47,13 +47,14 @@ class Follow extends Model
     //フォロー解除
     public function unfollow($user_id)
     {
+        
         // すでにフォロー済みではないか？
         $existing = $this->is_following($user_id);
         // フォローするIDが自身ではないか？
         $myself = $this->id == $user_id;
         
         // すでにフォロー済みなら、フォローを外す
-        if (!$existing && !$myself) {
+        if ($existing && !$myself) {
             $this->followings()->detach($user_id);
         }
     }

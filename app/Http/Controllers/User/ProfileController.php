@@ -94,12 +94,12 @@ class ProfileController extends Controller
         $count_posts = Post::where('user_id', $request->id)->count();
         
         // ログインユーザーが表示しようとしているユーザーをフォローしていれば、trueを返す
-        $is_following = Follow::where('followee_id', $auth->id)->where('follower_id', $request->id)->exists();
+        $is_following = Follow::where('follower_id', $auth->id)->where('followee_id', $request->id)->exists();
         
         // フォロー数をカウント
-        $count_followings = Follow::where('followee_id', $request->id)->count();
+        $count_followings = Follow::where('follower_id', $request->id)->count();
         // フォロワー数をカウント
-        $count_followers = Follow::where('follower_id', $request->id)->count();
+        $count_followers = Follow::where('followee_id', $request->id)->count();
         
         $posts = Post::where('user_id', $request->id)->get();
         return view('user.profile.mypages', [
@@ -115,41 +115,69 @@ class ProfileController extends Controller
     }
     
     // フォロー中ユーザー表示
-    public function followings($id)
+    public function followings(Request $request)
     {
-        $user = User::where(Auth::user()->id)->first();
-        $followings = $user->followings()->paginate(12);
+        //ログインユーザー情報の取得
+        $auth = Auth::user();
+        $user = User::where('id', $request->id)->first();
+        
+        // コーディネート投稿数をカウント
+        $count_posts = Post::where('user_id', $request->id)->count();
+        
+        // ログインユーザーが表示しようとしているユーザーをフォローしていれば、trueを返す
+        $is_following = Follow::where('follower_id', $auth->id)->where('followee_id', $request->id)->exists();
         
         // フォロー数をカウント
-        $count_followings = Follow::where('followee_id', $id)->count();
+        $count_followings = Follow::where('follower_id', $request->id)->count();
         // フォロワー数をカウント
-        $count_followers = Follow::where('follower_id', $id)->count();
+        $count_followers = Follow::where('followee_id', $request->id)->count();
         
-        return view('user.profile.mypages', [
-            'user' => $user,
-            'followings' => $followings,
+        $followings = Follow::where('follower_id', $request->id)->get();
+        $posts = Post::where('user_id', $request->id)->get();
+        return view('followings', [
+            'posts' => $posts, 
+            'show_id' => $request->id,
+            'user_info' => $user,
+            'auth' => $auth,
+            'is_following' => $is_following,
             'count_followings' => $count_followings,
-            'count_followers' => $count_followers
-            ]);
+            'count_followers' => $count_followers,
+            'count_posts' => $count_posts,
+            'followings' => $followings
+         ]);
     }
     
     // フォロワーユーザー表示
-    public function followers($id)
+    public function followers(Request $request)
     {
-        $user = User::where(Auth::user()->id)->first();
-        $followers = $user->followers()->paginate(12);
+        //ログインユーザー情報の取得
+        $auth = Auth::user();
+        $user = User::where('id', $request->id)->first();
+        
+        // コーディネート投稿数をカウント
+        $count_posts = Post::where('user_id', $request->id)->count();
+        
+        // ログインユーザーが表示しようとしているユーザーをフォローしていれば、trueを返す
+        $is_following = Follow::where('follower_id', $auth->id)->where('followee_id', $request->id)->exists();
         
         // フォロー数をカウント
-        $count_followings = Follow::where('followee_id', $id)->count();
+        $count_followings = Follow::where('follower_id', $request->id)->count();
         // フォロワー数をカウント
-        $count_followers = Follow::where('follower_id', $id)->count();  
+        $count_followers = Follow::where('followee_id', $request->id)->count();
         
-        return view('user.profile.mypages', [
-            'user' => $user,
-            'followers' => $followers,
+        $followers = Follow::where('followee_id', $request->id)->get();
+        $posts = Post::where('user_id', $request->id)->get();
+        return view('followers', [
+            'posts' => $posts, 
+            'show_id' => $request->id,
+            'user_info' => $user,
+            'auth' => $auth,
+            'is_following' => $is_following,
             'count_followings' => $count_followings,
-            'count_followers' => $count_followers
-            ]);
+            'count_followers' => $count_followers,
+            'count_posts' => $count_posts,
+            'followers' => $followers
+         ]);
     }
     
     
@@ -189,11 +217,6 @@ class ProfileController extends Controller
             'user' => $user,
             'posts' => $posts
         ]);
-    }
-    
-    public function top()
-    {
-        return view('top');
     }
     
     public function test()

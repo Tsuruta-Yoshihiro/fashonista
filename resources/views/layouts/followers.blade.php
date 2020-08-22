@@ -13,14 +13,16 @@
         
         <!--Scripts-->
         <script src="{{ secure_asset('js/app.js') }}" defer></script>
+        <script scr="{{ secure_asset('js/followers.js') }}" defer></script>
         
         <!--Fonts-->
         <link rel="dns-prefetch" href="https://fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,600" rel="stylesheet" type="text/css">
+        <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
         
         <!--Style-->
         <link href="{{ secure_asset('css/app.css') }}" rel="stylesheet">
-        <link href="{{ secure_asset('css/profile.css') }}" rel="stylesheet">
+        <link href="{{ secure_asset('css/followers.css') }}" rel="stylesheet">
     </head>
     <body>
         <div id="app">

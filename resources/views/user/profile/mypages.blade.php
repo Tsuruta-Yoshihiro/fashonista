@@ -74,7 +74,7 @@
                                             <div class="main">
                                                 <ul class="clearfix">
                                                     <li>
-                                                        <a href="{{ url('/user/profile/mypages') }}">
+                                                        <a href="{{ url('/user/profile/mypages?id='. $user_info->id) }}">
                                                             {{ $count_posts }}
                                                             <span>コーディネート</span>
                                                         </a>

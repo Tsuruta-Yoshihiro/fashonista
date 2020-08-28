@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Auth\RegisterController;
 use Illuminate\Support\Facades\Auth;
@@ -12,6 +13,8 @@ use App\Post;
 use APP\User;
 use Validator;
 use App\Follow;
+
+
 
 class ProfileController extends Controller
 {
@@ -132,10 +135,19 @@ class ProfileController extends Controller
         // フォロワー数をカウント
         $count_followers = Follow::where('followee_id', $request->id)->count();
         
+        //followingsにはどういった情報が入っているか
+        //画面で表示されているユーザーがフォローしているユーザー一覧
         $followings = Follow::where('follower_id', $request->id)->get();
-        $posts = Post::where('user_id', $request->id)->get();
+        
+        //followsテーブルのfollowee_idに登録されているユーザー（usersテーブルの情報）のname,thumbnail情報を取得する
+        $users = DB::table('follows')
+            ->join('users', 'follows.followee_id', '=', 'users.id')
+            ->select('users.name', 'users.thumbnail')
+            ->get();
+            
+        //$posts = Post::where('user_id', $request->id)->get();
         return view('followings', [
-            'posts' => $posts, 
+            //'posts' => $posts, 
             'show_id' => $request->id,
             'user_info' => $user,
             'auth' => $auth,
@@ -143,7 +155,8 @@ class ProfileController extends Controller
             'count_followings' => $count_followings,
             'count_followers' => $count_followers,
             'count_posts' => $count_posts,
-            'followings' => $followings
+            'followings' => $followings,
+            'users' => $users
          ]);
     }
     
@@ -166,6 +179,11 @@ class ProfileController extends Controller
         $count_followers = Follow::where('followee_id', $request->id)->count();
         
         $followers = Follow::where('followee_id', $request->id)->get();
+        $users = DB::table('follows')
+            ->join('users', 'follows.follower_id', '=', 'users.id')
+            ->select('users.name', 'users.thumbnail')
+            ->get();
+        
         $posts = Post::where('user_id', $request->id)->get();
         return view('followers', [
             'posts' => $posts, 
@@ -176,7 +194,8 @@ class ProfileController extends Controller
             'count_followings' => $count_followings,
             'count_followers' => $count_followers,
             'count_posts' => $count_posts,
-            'followers' => $followers
+            'followers' => $followers,
+            'users' => $users
          ]);
     }
     

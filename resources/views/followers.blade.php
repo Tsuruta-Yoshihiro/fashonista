@@ -73,7 +73,7 @@
                                 <div class="main">
                                     <ul class="clearfix">
                                         <li>
-                                            <a href="{{ url('/user/profile/mypages') }}">
+                                            <a href="{{ url('/user/profile/mypages?id='. $user_info->id) }}">
                                                 {{ $count_posts }}
                                                 <span>コーディネート</span>
                                             </a>
@@ -106,27 +106,26 @@
                         <div id="content">
                             <div id="user_list_2column">
                                 <ul class="clearfix">
-                                    @foreach($followers as $user)
+                                    @foreach($users as $user)
                                         <li class="list">
                                             <div class="container">
                                                 <div class="main clearfix">
                                                     <div class="img_box">
                                                         <p class="img">
-                                                            <!-- DOTO：フォローしているユーザのサムネイルを表示 -->
-                                                            <img src="{{ asset('/storage/thumbnail/'. $user_info->thumbnail) }}" class="thumbnail">
+                                                            @if($user->thumbnail)
+                                                               <img src="{{ asset('/storage/thumbnail/'. $user->thumbnail) }}" class="thumbnail">
+                                                            @else
+                                                               <img src="//cdn.wimg.jp/content/no_image/profile/nu_200.gif" srcset="//cdn.wimg.jp/content/no_image/profile/nu_640.gif 2x">
+                                                            @endif
                                                         </p>
                                                     </div>
                                                     <div class="content">
                                                         <h3 class="name">
-                                                            @if($auth->id == $show_id)
-                                                             {{ $auth->name }}
-                                                            @else
-                                                             {{ $user_info->name }}
-                                                            @endif
+                                                            {{ $user->name }}
                                                         </h3>
                                                         <ul class="meta clearfix">
                                                             <li>
-                                                                <a href="{{ url('/user/profile/mypages') }}">
+                                                                <a href="{{ url('/user/profile/mypages?id='. $user_info->id) }}">
                                                                     {{ $count_posts }}
                                                                     <span>コーディネート</span>
                                                                 </a>

@@ -32,9 +32,6 @@ Route::group(['prefix' => 'user', 'middleware' => 'auth'], function() {
     Route::post('profile/edit', 'User\ProfileController@update');
     Route::get('profile/delete', 'User\ProfileController@delete');
     Route::get('profile/mypages', 'User\ProfileController@mypages');
-    
-    //test
-    Route::get('profile/test', 'User\ProfileController@test');
 });
 
     //いいね！関連

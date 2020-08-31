@@ -23,7 +23,7 @@
         <link href="{{ secure_asset('css/profile.css') }}" rel="stylesheet">
     </head>
     <body>
-        <div id="app">
+    <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
@@ -55,12 +55,12 @@
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="{{ route('logout') }}" 
                                    onclick="event.preventDefault();
-                                                 document.getElementById('logout-for m').submit();">
+                                                 document.getElementById('logout-form').submit();">
                                     {{ __('Logout') }}
                                 </a>
-                                <from id="logout-from" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                     @csrf
-                                </from>
+                                </form>
                             </div>
                         </li>
                     @endguest

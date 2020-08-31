@@ -316,7 +316,7 @@ img {
 }
 
 #processing .upload {
-  margin: 0 11px 0 11px;
+  margin: 0 11px 0 -40px;
   float: left;
   width: 218px;
   text-align: center;
@@ -324,7 +324,6 @@ img {
   font-weight: bold;
   position: relative;
 }
-
 
 .upload input {
   display: block;
@@ -336,4 +335,24 @@ img {
   font-weight: bold;
   border: 1px #1e78ad solid;
   border-radius: 4px;
+}
+
+.post_delete {
+  display: block;
+  clear: both;
+  margin: 37px auto 0 auto;
+  width: 240px;
+}
+
+.post_delete input {
+  display: block;
+  text-align: center;
+  width: 218px;
+  background-color: #FF0000;
+  padding: 12px 0 12px 0;
+  color: #fff;
+  font-weight: bold;
+  border: 1px #1e78ad solid;
+  border-radius: 4px;
+  
 }

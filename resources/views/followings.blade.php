@@ -1,7 +1,6 @@
 @extends('layouts.followings')
 @section('title', 'フォロー一覧')
 @section('content')
-
     <div class="container">
         <div class="row">
             <div id="gbl_title_container" class="clearfix">  
@@ -106,60 +105,64 @@
                         <div id="content">
                             <div id="user_list_2column">
                                 <ul class="clearfix">
-                                    @if($followings !== $show_id)
-                                    
+                                    <?php
+                                      $i = 0;
+                                    ?>
                                         @foreach($users as $user)
-                                            <li class="list">
-                                                <div class="container">
-                                                    <div class="main clearfix">
-                                                        <div class="img_box">
-                                                            <p class="img">
-                                                                @if($user->thumbnail)
-                                                                  <img src="{{ asset('/storage/thumbnail/'. $user->thumbnail) }}" class="thumbnail">
-                                                                @else
-                                                                  <img src="//cdn.wimg.jp/content/no_image/profile/nu_200.gif" srcset="//cdn.wimg.jp/content/no_image/profile/nu_640.gif 2x">
-                                                                @endif
-                                                            </p>
-                                                        </div>
-                                                        <div class="content">
-                                                            <h3 class="name">
-                                                                {{ $user->name }}
-                                                            </h3>
-                                                            <ul class="meta clearfix">
-                                                                <li>
-                                                                    <a href="{{ url('/user/profile/mypages?id='. $user_info->id) }}">
-                                                                            {{ $count_posts }}
-                                                                        <span>コーディネート</span>
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a href="{{ route('followers', ['id' => $user_info->id]) }}" >
-                                                                        {{ $count_followers }}
-                                                                        <span>フォロワー</span>
-                                                                    </a>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                    <div class="sub btn_block">
-                                    					<div class="btn2_follow">
-                                                            <div class="btn_follow">
-                                                                @if ($is_following)
-                                                                 
-                                                                @else
-                                                                <div>
-                                                                    <a href="{{ action('User\FollowController@destroy', ['id' => $user_info->id]) }}" class="over" >
-                                                                        <button type="submit" class="btn btn-danger">フォロー中</button>
-                                                                    </a>
-                                                                </div>
-                                                                @endif
+                                            @if($user->id != $show_id)
+                                                <li class="list">
+                                                    <div class="container">
+                                                        <div class="main clearfix">
+                                                            <div class="img_box">
+                                                                <p class="img">
+                                                                    @if($user->thumbnail)
+                                                                      <img src="{{ asset('/storage/thumbnail/'. $user->thumbnail) }}" class="thumbnail">
+                                                                    @else
+                                                                      <img src="//cdn.wimg.jp/content/no_image/profile/nu_200.gif" srcset="//cdn.wimg.jp/content/no_image/profile/nu_640.gif 2x">
+                                                                    @endif
+                                                                </p>
+                                                            </div>
+                                                            <div class="content">
+                                                                <h3 class="name">
+                                                                    {{ $user->name }}
+                                                                </h3>
+                                                                <ul class="meta clearfix">
+                                                                    <li>
+                                                                        <a href="{{ url('/user/profile/mypages?id='. $user_info->id) }}">
+                                                                                {{ $cntFollowerPost[$i] }}
+                                                                            <span>コーディネート</span>
+                                                                        </a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a href="{{ route('followers', ['id' => $user_info->id]) }}" >
+                                                                            {{ $cntFollowerFollowers[$i] }}
+                                                                            <span>フォロワー</span>
+                                                                        </a>
+                                                                    </li>
+                                                                </ul>
                                                             </div>
                                                         </div>
-                    				               </div>
-                                                </div>    
-                                            </li>
-                                        @endforeach
-                                    @endif
+                                                        <div class="sub btn_block">
+                                        					<div class="btn2_follow">
+                                                                <div class="btn_follow">
+                                                                    @if ($is_following)
+                                                                    @else
+                                                                    <div>
+                                                                        <a href="{{ action('User\FollowController@destroy', ['id' => $user_info->id]) }}" class="over" >
+                                                                            <button type="submit" class="btn btn-danger">フォローする</button>
+                                                                        </a>
+                                                                    </div>
+                                                                    @endif
+                                                                </div>
+                                                            </div>
+                        				               </div>
+                                                    </div>    
+                                                </li>
+                                            @endif
+                                        @endforeach    
+                                     <?php
+                                     $i++;
+                                     ?>     
                                 </ul>
                             </div>
                         </div>

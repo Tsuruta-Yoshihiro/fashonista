@@ -10,12 +10,9 @@
         <div class="row">
             <div class="col-md-8">
                 <h2>コーディネート投稿</h2>
-                
                    <div id="gbl_body" class="clearfix">
                        <div id="content">
                            <form action="{{ action('User\CoordinationController@create') }}" method="post" enctype="multipart/form-data">
-                               
-                               
                                @if (count($errors) > 0)
                                    <ul>
                                       @foreach($errors->all() as $e)
@@ -23,8 +20,6 @@
                                       @endforeach
                                    </ul>
                                @endif
-                               
-                               
                                <!-- 画像アップデート -->
                                <div id="upload_container">
                                    <section id="upload_img" class="clearfix" for="image">
@@ -58,36 +53,7 @@
                                            </div>
                                        </div>
                                    </section>
-                                   
-                                　 <!-- アイテム追加 
-                                   <div id="secondary">
-                                       <section id="upload_item" class="clearfix" name="item">
-                                           <div class="section_sub required">
-                                               <h2>着用アイテム</h2>
-                                           </div>
-                                           <div class="section_main clearfix">
-                                               <div id="regist_item">
-                                                   
-                                               </div>
-                                               <div id="add_item">
-                                                   <div id="add_btn">
-                                                       <p class="trigger over">
-                                                           <span class="ico">＋</span>
-                                                           <span class="txt">アイテムを追加</span>
-                                                       </p>
-                                                   </div>
-                                               
-                                               <p class="notes">
-                                                   最大６アイテムまで追加できます (残り
-                                                   <span class="num">6</span>
-                                                   )
-                                               </p>
-                                               </div>
-                                           </div>
-                                       </section>
-                                       -->
-                                       
-                                    　<!-- コーディネート紹介 -->
+                                    　 <!-- コーディネート紹介 -->
                                        <section id="coordination_detail" class="clearfix">
                                            <div class="section_sub">
                                                <h2>コーディネート詳細</h2>
@@ -113,10 +79,8 @@
                                </div>
                            </form>
                        </div>
-                       
                    </div>
             </div>
         </div>
     </div>
-            
 @endsection

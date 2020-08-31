@@ -58,14 +58,12 @@ class CoordinationController extends Controller
     {
         // Validator チェック
         $rules = [
-            //'image_path' => 'required',
+            'image_path' => 'required',
         ];
-        
         //エラーメッセージ
         $messages = [
-            'image_path.required' => '画像が未入力です',
+            'image_path.required' => 'ユーザー名が未入力です',
         ];
-        
         $validator = Validator::make($request->all(),$rules,$messages);
         
         if($validator->fails()){
@@ -73,6 +71,7 @@ class CoordinationController extends Controller
                 ->withErrors($validator)
                 ->withInput();
         }
+        
         // Post Modelからデータ取得
         $posts = Post::find($request->id);
         $coordination_form = $request->all();
@@ -84,11 +83,23 @@ class CoordinationController extends Controller
             $posts->image_path = null;
             unset($coordination_form['remove']);
         }
-        
         unset($coordination_form['_token']);
         $posts->fill($coordination_form)->save();
         
-        return redirect('user/profile/mypages?id='. $request->user()->id);
+        return view('user/profile/mypages?id=', [
+            'posts' => $posts,
+            'coordination_form' => $coordination_form
+            ]);
+    }
+    
+    public function delete(Request $request)
+    {
+        $posts = Post::find($request->id);
+        $posts->delete();
+        return view('user/profile/mypages?id=', [
+            'posts' => $posts,
+            'coordination_form' => $coordination_form
+            ]);
     }
     
     //いいね！

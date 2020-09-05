@@ -21,5 +21,6 @@ mix.js('resources/js/app.js', 'public/js').sourceMaps()
     .sass('resources/sass/top.scss', 'public/css')
     .sass('resources/sass/profile_edit.scss' , 'public/css')
     .sass('resources/sass/followings.scss' , 'public/css')
-    .sass('resources/sass/followers.scss' , 'public/css');
+    .sass('resources/sass/followers.scss' , 'public/css')
+    .sass('resources/sass/likes.scss' , 'public/css');
     //.version();

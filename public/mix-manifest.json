@@ -7,5 +7,6 @@
     "/css/top.css": "/css/top.css",
     "/css/profile_edit.css": "/css/profile_edit.css",
     "/css/followings.css": "/css/followings.css",
-    "/css/followers.css": "/css/followers.css"
+    "/css/followers.css": "/css/followers.css",
+    "/css/likes.css": "/css/likes.css"
 }

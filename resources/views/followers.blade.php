@@ -15,19 +15,11 @@
                         <div id="user_sub">
                             <div class="thumbnail">
                                 <p class="img">
-                                    @if($auth->id == $show_id)
-                                        @if($auth->thumbnail)
-                                          <img src="{{ asset('/storage/thumbnail/'. $auth->thumbnail) }}" class="thumbnail" width="148" height="148">
-                                        @else
-                                          <img src="//cdn.wimg.jp/content/no_image/profile/nu_200.gif" srcset="//cdn.wimg.jp/content/no_image/profile/nu_640.gif 2x" width="148" height="148">
-                                        @endif
+                                    @if($user_info->thumbnail)
+                                      <img src="{{ asset('/storage/thumbnail/'. $user_info->thumbnail) }}" class="thumbnail" width="148" height="148">
                                     @else
-                                        @if($user_info->thumbnail)
-                                          <img src="{{ asset('/storage/thumbnail/'. $user_info->thumbnail) }}" class="thumbnail" width="148" height="148">
-                                        @else
-                                          <img src="//cdn.wimg.jp/content/no_image/profile/nu_200.gif" srcset="//cdn.wimg.jp/content/no_image/profile/nu_640.gif 2x" width="148" height="148">
-                                        @endif
-                                    @endif    
+                                      <img src="//cdn.wimg.jp/content/no_image/profile/nu_200.gif" srcset="//cdn.wimg.jp/content/no_image/profile/nu_640.gif 2x" width="148" height="148">
+                                    @endif
                                 </p>
                             </div>
                             @if($auth->id == $show_id)
@@ -57,12 +49,10 @@
                         <div id="user_main">
                             <section class="intro">
                                <h1 class="user_name">
-                                @if($auth->id == $show_id)
-                                 {{ $auth->name }}
-                                @else
-                                 {{ $user_info->name }}
-                                @endif
-                                </h1>
+                                    <a href="{{ url('/user/profile/mypages?id='. $user_info->id) }}">
+                                        {{ $user_info->name }}
+                                    </a>
+                                </h1>       
                             </section>
                         </div>
                     </div>
@@ -124,7 +114,9 @@
                                                             </div>
                                                             <div class="content">
                                                                 <h3 class="name">
-                                                                    {{ $user->name }}
+                                                                    <a href="{{ url('/user/profile/mypages?id='. $user->id) }}">
+                                                                        {{ $user->name }}
+                                                                    </a>
                                                                 </h3>
                                                                 <ul class="meta clearfix">
                                                                     <li>

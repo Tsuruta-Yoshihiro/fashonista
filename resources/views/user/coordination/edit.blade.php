@@ -59,16 +59,16 @@
                                         </div>
                                    </section>
                                      <div class="post_delete">
-                                       <input type="submit" class="btn btn-primary" value="削除する">
+                                         <input type="submit" class="btn btn-primary" value="削除">
                                      </div>
                                    </div>
                                </div>
                                {{ csrf_field() }}
                                <div id="processing">
                                    <ul class="clearfix">
-                                       <il class="upload">
-                                         <input type="submit" class="btn btn-primary" value="投稿内容を修正する">
-                                       </il>
+                                       <li class="upload">
+                                           <a href="{{ action('User\CoordinationController@edit', ['id' => $posts->id]) }}">投稿内容を修正する</a>
+                                       </li>
                                    </ul>
                                </div>
                            </form>

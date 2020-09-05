@@ -78,6 +78,9 @@ body {
   color: #333;
 }
 
+#user_header #user_main .intro .user_name a {
+  color: black;
+}
 
 #user_header #user_sub {
   width: 150px;
@@ -179,10 +182,10 @@ body {
 }
 
 .main a {
-  text-align: center;
+  color: black;
   display: block;
   background-color: #fff;
-  padding: 8px 0;
+  padding: 3px 0;
 }
 
 .sub ul {
@@ -284,7 +287,7 @@ body {
   width: 248px;
 }
 
-.name {
+.content .name a {
   font-size: 20px;
   font-weight: bold;
   line-height: 1.2;

@@ -16,15 +16,14 @@ Route::get('/', function () {
 });
 Route::get('/top', 'User\CoordinationController@top');
 
-
 Route::group(['prefix' => 'user', 'middleware' => 'auth'], function() {
     
     Route::get('coordination/create', 'User\CoordinationController@add');
     Route::post('coordination/create', 'User\CoordinationController@create');
     Route::get('coordination', 'User\CoordinationController@index');
-    Route::get('coordination/edit', 'User\CoordinationController@edit');
-    Route::post('coordination/edit', 'User\CoordinationController@update');
-    Route::get('coordination/delete', 'User\CoordinationController@delete');
+    Route::get('coordination/edit', 'User\CoordinationController@edit')->name('posts_edit');
+    Route::post('coordination/edit', 'User\CoordinationController@update')->name('posts_update');
+    Route::get('coordination/delete', 'User\CoordinationController@delete')->name('posts_delete');
     
     Route::get('profile/create', 'User\ProfileController@add');
     Route::post('profile/create', 'User\ProfileController@create');
@@ -34,11 +33,11 @@ Route::group(['prefix' => 'user', 'middleware' => 'auth'], function() {
     Route::get('profile/mypages', 'User\ProfileController@mypages');
 });
 
-    //いいね！関連
-Route::prefix('posts')->name('posts.')->group(function () {
-    Route::put('/{post}/like', 'User\CoordinationController@like')->name('like')->middleware('auth');
-    Route::delete('/{post}/like', 'User\CoordinationController@unlike')->name('unlike')->middleware('auth');
-
+//いいね！関連
+Route::group(['prefix' => 'posts', 'middleware' => 'auth'], function() {
+    Route::put('/{post}/like', 'User\CoordinationController@like')->name('like');
+    Route::delete('/{post}/like', 'User\CoordinationController@unlike')->name('unlike');
+    Route::get('/{id}/likes', 'User\ProfileController@likes')->name('likes');
 });
 
 

@@ -1,11 +1,9 @@
-@extends('layouts.mypages')
-@section('title', 'マイページ')
+@extends('layouts.likes')
+@section('title', 'お気に入り一覧')
 @section('content')
-
 <div class="container">
     <div class="row">
-        <div class="col-md-8">
-            <h2>マイページ</h2>
+        <div id="gbl_title_container" class="clearfix">  
                 @if (count($errors) > 0)
                     <ul>
                         @foreach($errors->all() as $e)
@@ -17,19 +15,11 @@
                     <div id="user_sub">
                         <div class="thumbnail">
                             <p class="img">
-                                @if($auth->id == $show_id)
-                                    @if($auth->thumbnail)
-                                      <img src="{{ asset('/storage/thumbnail/'. $auth->thumbnail) }}" class="thumbnail" width="148" height="148">
-                                    @else
-                                      <img src="//cdn.wimg.jp/content/no_image/profile/nu_200.gif" srcset="//cdn.wimg.jp/content/no_image/profile/nu_640.gif 2x" width="148" height="148">
-                                    @endif
+                                @if($user_info->thumbnail)
+                                  <img src="{{ asset('/storage/thumbnail/'. $auth->thumbnail) }}" class="thumbnail" width="148" height="148">
                                 @else
-                                    @if($user_info->thumbnail)
-                                      <img src="{{ asset('/storage/thumbnail/'. $user_info->thumbnail) }}" class="thumbnail" width="148" height="148">
-                                    @else
-                                      <img src="//cdn.wimg.jp/content/no_image/profile/nu_200.gif" srcset="//cdn.wimg.jp/content/no_image/profile/nu_640.gif 2x" width="148" height="148">
-                                    @endif
-                                @endif    
+                                  <img src="//cdn.wimg.jp/content/no_image/profile/nu_200.gif" srcset="//cdn.wimg.jp/content/no_image/profile/nu_640.gif 2x" width="148" height="148">
+                                @endif
                             </p>
                         </div>
                         @if($auth->id == $show_id)
@@ -107,21 +97,9 @@
                             </div>
                         </nav>
                     </div>
-                </div>
-                <div id="content">
-                    <div class="btnAdd">
-                         @if($auth->id == $show_id)
-                           <!-- ログインしているユーザー自身であれば投稿ボタン表示する -->
-                           <a href=" {{ url('/user/coordination/create') }}" class="over">コーディネートを投稿する</a>
-                         @else
-                           <!-- ログインしているユーザーではない場合は投稿ボタン表示しない -->
-                         @endif
-                    </div>
-                </div>
-                <form action="{{ action('User\ProfileController@mypages') }}" method="get">
-                    <div id="main_list">
+                    <div id="likes_list">
                          <ul class="list clearfix">
-                             @foreach($posts as $post)
+                             @foreach($likes as $post)
                                  <li class="private">
                                      <div class="imagelist">
                                          <a href="{{ url('/user/coordination/edit?id='. $post->id) }}">
@@ -146,7 +124,8 @@
                              @endforeach
                          </ul>
                     </div>
-                </form>
+                </div>
+        </div>    
     </div>
 </div>
 @endsection

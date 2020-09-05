@@ -51,6 +51,7 @@ class CoordinationController extends Controller
         
         return view('user.coordination.edit', [
             'coordination_form' => $posts,
+            'posts' => $posts
             ]);
     }
     
@@ -86,20 +87,15 @@ class CoordinationController extends Controller
         unset($coordination_form['_token']);
         $posts->fill($coordination_form)->save();
         
-        return view('user/profile/mypages?id=', [
-            'posts' => $posts,
-            'coordination_form' => $coordination_form
-            ]);
+        return redirect('user/profile/mypages?id=');
+
     }
     
     public function delete(Request $request)
     {
         $posts = Post::find($request->id);
         $posts->delete();
-        return view('user/profile/mypages?id=', [
-            'posts' => $posts,
-            'coordination_form' => $coordination_form
-            ]);
+        return redirect('user/profile/mypages?id=');
     }
     
     //いいね！

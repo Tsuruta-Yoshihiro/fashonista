@@ -72,6 +72,10 @@ body {
   color: #333;
 }
 
+#user_header #user_main .intro .user_name a {
+  color: black;
+}
+
 #user_header #user_sub {
   width: 150px;
   float: left;
@@ -167,6 +171,7 @@ body {
 }
 
 .main a {
+  color: black;
   text-align: center;
   display: block;
   background-color: #fff;

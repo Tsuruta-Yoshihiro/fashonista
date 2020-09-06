@@ -4,11 +4,11 @@ namespace App\Http\Controllers\User;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
+use Intervention\Image\ImageManagerStatic as Image;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Auth\RegisterController;
-use Illuminate\Support\Facades\Auth;
-use Intervention\Image\ImageManagerStatic as Image;
-use Illuminate\Support\Facades\Storage;
 use App\Post;
 use APP\User;
 use Validator;
@@ -89,7 +89,7 @@ class ProfileController extends Controller
     
     public function mypages(Request $request)
     {
-        //ログインユーザー情報���取得
+        //ログインユーザー情報取得
         $auth = Auth::user();
         $user = User::where('id', $request->id)->first();
         
@@ -306,7 +306,6 @@ class ProfileController extends Controller
             'cntFolloweeFollowees' => $cntFolloweeFollowees,
             'likes' => $likes
          ]);
-        
     }
 
 }

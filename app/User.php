@@ -47,6 +47,11 @@ class User extends Authenticatable
         return $this->hasMany('App\Post');
     }
     
+    public function show(): HasMany
+    {
+        return $this->hasMany('App\User');
+    }
+    
     // いいね！
     public function likes(): BelongsToMany
     {
@@ -99,7 +104,6 @@ class User extends Authenticatable
             $this->followings()->detach($user_id);
         }
     }
-
     
     public function getFollowerCount($user_id)
     {

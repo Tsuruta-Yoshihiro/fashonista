@@ -22,7 +22,6 @@ class Post extends Model
         return $this->BelongTo('App\User');
     }
     
-    
     // いいね！
     public function likes(): BelongsToMany
     {

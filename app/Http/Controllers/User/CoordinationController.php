@@ -111,20 +111,20 @@ class CoordinationController extends Controller
         //ログインユーザー情報取得
         $auth = Auth::user();
         $select_user = User::where('id', $request->id)->first();
-        //dd($select_user);
         
         // ログインユーザーが表示しようとしているユーザーをフォローしていれば、trueを返す
         $is_following = Follow::where('follower_id', $auth->id)->where('followee_id', $request->id)->exists();
         
-        $post = Post::find($request->id);
-        //post = Post::where('user_id', $request->id)->get();
-        //dd($post);
+        // クリックした画像のpost_idでpostテーブルから該当のデータを取得する
+        $post = Post::find($request->post_id);
+        
+        // postテーブルとuersテーブルを結合する条件がuser_id　結合したテーブルをクリックした画像のpost_idで絞り込む
         $post_user = DB::table('posts')
             ->join('users', 'posts.user_id', '=', 'users.id')
             ->select('users.name', 'users.thumbnail', 'users.id')
-            ->where('user_id', $request->id)
+            ->where('posts.id', $request->post_id)
             ->get();
-        //dd($post_user);  
+          
         return view('user.coordination.show', [
             'auth' => $auth,
             'user_info' => $select_user,

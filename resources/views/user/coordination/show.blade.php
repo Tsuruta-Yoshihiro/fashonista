@@ -15,13 +15,15 @@
                                     @endforeach
                                 </ul>
                             @endif
+                            
                             <!-- クリックした投稿のユーザーの詳細を表示 -->
+                          
                             <div id="user_header" class="clearfix">
                                 <div id="user_sub">
                                     <div class="thumbnail">
                                         <p class="img">
-                                            @if($auth->thumbnail)
-                                              <img src="{{ asset('/storage/thumbnail/'. $auth->thumbnail) }}" class="thumbnail">
+                                            @if($user_info->thumbnail)
+                                              <img src="{{ asset('/storage/thumbnail/'. $user_info->thumbnail) }}" class="thumbnail" width="148" height="148">
                                             @else
                                               <img src="//cdn.wimg.jp/content/no_image/profile/nu_200.gif" srcset="//cdn.wimg.jp/content/no_image/profile/nu_640.gif 2x" width="148" height="148">
                                             @endif
@@ -30,7 +32,8 @@
                                     @if($auth->id == $show_id)
                                     <div class="btn_edit">
                                         <p class="btn_profileupdate">
-                                            <a href="{{ url('/user/coordination/edit?id=1') }}" class="over">投稿を編集する</a>
+                                            <!--  -->
+                                            <a href="{{ url('/user/coordination/edit?id='. $post->id) }}" class="over">投稿を編集する</a>
                                             
                                         </p>
                                     </div>
@@ -56,20 +59,20 @@
                                     <section class="intro">
                                         <h1 class="user_name">
                                             <a href="{{ url('/user/profile/mypages?id='. $user_info->id) }}">
-                                                {{ $auth->name }}
+                                                {{ $user_info->name }}
                                             </a>
                                         </h1>
                                     </section>
                                 </div>
                             </div>
-                           
+                          
                             <!-- クリックした投稿画像を表示 -->
                             <div id="gbl_body" class="clearfix">
                                 <div id="content_container" class="clearfix">
                                     <div id="content_main">
                                         <div id="coordination_img">
                                             <p class="img">
-                                                <img src="{{ asset('/storage/image/'. $coordination_form->image_path) }}" width="556" height="742">
+                                                <img src="{{ asset('/storage/image/'. $post->image_path) }}" width="556" height="742">
                                             </p>
                                         </div>
                                     </div>

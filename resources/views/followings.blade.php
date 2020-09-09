@@ -68,7 +68,8 @@
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="/user/favorite/" rel="nofollow">
+                                            <a href="{{ route('likes', ['id' => $user_info->id]) }}" >
+                                                {{ $count_likes }}
                                                 <span>お気に入り</span>
                                             </a> 
                                         </li>
@@ -120,13 +121,13 @@
                                                                 </h3>
                                                                 <ul class="meta clearfix">
                                                                     <li>
-                                                                        <a href="{{ url('/user/profile/mypages?id='. $user_info->id) }}">
+                                                                        <a href="{{ url('/user/profile/mypages?id='. $user->id) }}">
                                                                                 {{ $cntFollowerPost[$i] }}
                                                                             <span>コーディネート</span>
                                                                         </a>
                                                                     </li>
                                                                     <li>
-                                                                        <a href="{{ route('followers', ['id' => $user_info->id]) }}" >
+                                                                        <a href="{{ route('followers', ['id' => $user->id]) }}" >
                                                                             {{ $cntFollowerFollowers[$i] }}
                                                                             <span>フォロワー</span>
                                                                         </a>

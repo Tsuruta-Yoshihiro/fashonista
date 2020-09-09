@@ -110,41 +110,28 @@ class CoordinationController extends Controller
     {
         //ログインユーザー情報取得
         $auth = Auth::user();
-        $user = \DB::table('users', $request->id)->first();
+        $select_user = User::where('id', $request->id)->first();
+        //dd($select_user);
         
-        //$likes = Like::where('user_id', $request->id)->get();
-    
         // ログインユーザーが表示しようとしているユーザーをフォローしていれば、trueを返す
         $is_following = Follow::where('follower_id', $auth->id)->where('followee_id', $request->id)->exists();
-        // フォロー数をカウント
-        $count_followings = Follow::where('follower_id', $request->id)->count();
-        // フォロワー数をカウント
-        $count_followers = Follow::where('followee_id', $request->id)->count();
-        // いいね数をカウント
-        $count_likes = Like::where('user_id', $request->id)->count();
         
-        //likesテーブルのuser_idに登録されているユーザー（usersテーブルの情報）のname,thumbnail情報を取得する
-        $users = DB::table('likes')
-            ->join('users', 'likes.user_id', '=', 'users.id')
+        $post = Post::find($request->id);
+        //post = Post::where('user_id', $request->id)->get();
+        //dd($post);
+        $post_user = DB::table('posts')
+            ->join('users', 'posts.user_id', '=', 'users.id')
             ->select('users.name', 'users.thumbnail', 'users.id')
             ->where('user_id', $request->id)
             ->get();
-            
-        $posts = Post::find($request->id);
-        
+        //dd($post_user);  
         return view('user.coordination.show', [
-            'posts' => $posts,
-            'post_user' => $request->id,
-            'show_id' => $request->id,
-            'user_info' => $user,
             'auth' => $auth,
+            'user_info' => $select_user,
             'is_following' => $is_following,
-            'count_followings' => $count_followings,
-            'count_followers' => $count_followers,
-            'count_likes' => $count_likes,
-            //'likes' => $likes,
-            'coordination_form' => $posts,
-            'posts' => $posts
+            'post' => $post,
+            'show_id' => $request->id,
+            'post_user' => $post_user,
          ]);
     }
     

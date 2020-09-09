@@ -106,6 +106,7 @@ class ProfileController extends Controller
         $count_likes = Like::where('user_id', $request->id)->count();
         
         $posts = Post::where('user_id', $request->id)->get();
+        
         return view('user.profile.mypages', [
             'posts' => $posts, 
             'show_id' => $request->id,
@@ -115,7 +116,7 @@ class ProfileController extends Controller
             'count_followings' => $count_followings,
             'count_followers' => $count_followers,
             'count_posts' => $count_posts,
-            'count_likes' => $count_likes,
+            'count_likes' => $count_likes
          ]);
     }
     
@@ -136,6 +137,8 @@ class ProfileController extends Controller
         $count_followings = Follow::where('follower_id', $request->id)->count();
         // フォロワー数をカウント
         $count_followers = Follow::where('followee_id', $request->id)->count();
+        // いいね数をカウント
+        $count_likes = Like::where('user_id', $request->id)->count();
         
         //followingsにはどういった情報が入っているか
         //画面で表示されているユーザーがフォローしているユーザー一覧
@@ -167,7 +170,8 @@ class ProfileController extends Controller
             'followings' => $followings,
             'users' => $users,
             'cntFollowerPost' => $cntFollowerPost,
-            'cntFollowerFollowers' => $cntFollowerFollowers
+            'cntFollowerFollowers' => $cntFollowerFollowers,
+            'count_likes' => $count_likes
          ]);
     }
     
@@ -188,7 +192,8 @@ class ProfileController extends Controller
         $count_followings = Follow::where('follower_id', $request->id)->count();
         // フォロワー数をカウント
         $count_followers = Follow::where('followee_id', $request->id)->count();
-        
+        // いいね数をカウント
+        $count_likes = Like::where('user_id', $request->id)->count();
         $followers = Follow::where('followee_id', $request->id)->get();
         
         $users = DB::table('follows')
@@ -216,7 +221,8 @@ class ProfileController extends Controller
             'followers' => $followers,
             'users' => $users,
             'cntFolloweePost' => $cntFolloweePost,
-            'cntFolloweeFollowees' => $cntFolloweeFollowees
+            'cntFolloweeFollowees' => $cntFolloweeFollowees,
+            'count_likes' => $count_likes
          ]);
     }
     
@@ -283,15 +289,18 @@ class ProfileController extends Controller
         
         $posts = Post::where('user_id', $request->id)->get();
         //$likes = Like::where('post_id', $request->id)->get();
-        $likes = DB::table('posts')
+        $likes = Post::select()
             ->join('likes', 'posts.user_id', '=', 'likes.user_id')
-            ->select('posts.image_path', 'posts.coordination_summary', 'posts.id')
-            ->where('post_id', $request->id)
-            ->get();
             
+            ->select('posts.image_path', 'posts.coordination_summary', 'posts.id')
+            ->where('likes.user_id', $request->id)
+            
+            ->groupBy('likes.post_id')
+            ->get();
+        //$likes = $posts->likes;
         //dd($likes);
-        return view('likes', [
-            'posts' => $posts,
+        return view('user.profile.mypages', [
+            'posts' => $likes,
             'show_id' => $request->id,
             'user_info' => $select_user,
             'auth' => $auth,
@@ -301,10 +310,20 @@ class ProfileController extends Controller
             'count_posts' => $count_posts,
             'followings' => $followings,
             'users' => $users,
-            'count_likes' => $count_likes,
-            'cntFolloweePost' => $cntFolloweePost,
-            'cntFolloweeFollowees' => $cntFolloweeFollowees,
-            'likes' => $likes
+            'count_likes' => $count_likes
+            //'cntFolloweePost' => $cntFolloweePost,
+            //'cntFolloweeFollowees' => $cntFolloweeFollowees,
+            //'likes' => $likes
+            
+            //'posts' => $posts, 
+            //'show_id' => $request->id,
+            //'user_info' => $user,
+            //'auth' => $auth,
+            //'is_following' => $is_following,
+            //'count_followings' => $count_followings,
+            //'count_followers' => $count_followers,
+            //'count_posts' => $count_posts,
+            //'count_likes' => $count_likes,
          ]);
     }
 

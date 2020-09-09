@@ -124,7 +124,7 @@
                              @foreach($posts as $post)
                                  <li class="private">
                                      <div class="imagelist">
-                                         <a href="{{ url('/user/coordination/show?id='. $post->id) }}">
+                                         <a href="{{ url('/user/coordination/show'. $post->user_id, $post->id) }}">
                                            <img src="{{ secure_asset('storage/image/' . $post->image_path) }}"></img>
                                          </a>
                                      </div>     

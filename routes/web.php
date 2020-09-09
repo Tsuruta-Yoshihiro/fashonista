@@ -24,7 +24,7 @@ Route::group(['prefix' => 'user', 'middleware' => 'auth'], function() {
     Route::get('coordination/edit', 'User\CoordinationController@edit')->name('posts_edit');
     Route::post('coordination/edit', 'User\CoordinationController@update')->name('posts_update');
     Route::get('coordination/delete', 'User\CoordinationController@delete')->name('posts_delete');
-    Route::get('coordination/show', 'User\CoordinationController@show')->name('show');
+    Route::get('coordination/show/{post}', 'User\CoordinationController@show')->name('show');
     
     Route::get('profile/create', 'User\ProfileController@add');
     Route::post('profile/create', 'User\ProfileController@create');
@@ -46,7 +46,7 @@ Auth::routes();
     // ログイン状態
     Route::group(['middleware' => 'auth'], function() {
     // ユーザ関連
-    Route::resource('users', 'User\ProfileController', ['only' => ['index', 'show', 'edit', 'update']]);
+    //Route::resource('users', 'User\ProfileController', ['only' => ['index', 'show', 'edit', 'update']]);
 
 
     //フォロー関連

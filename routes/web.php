@@ -20,10 +20,10 @@ Route::group(['prefix' => 'user', 'middleware' => 'auth'], function() {
     
     Route::get('coordination/create', 'User\CoordinationController@add');
     Route::post('coordination/create', 'User\CoordinationController@create');
-    Route::get('coordination', 'User\CoordinationController@index');
-    Route::get('coordination/edit', 'User\CoordinationController@edit')->name('posts_edit');
-    Route::post('coordination/edit', 'User\CoordinationController@update')->name('posts_update');
-    Route::get('coordination/delete', 'User\CoordinationController@delete')->name('posts_delete');
+    //Route::get('coordination', 'User\CoordinationController@index');
+    Route::get('coordination/edit', 'User\CoordinationController@edit');
+    Route::post('coordination/edit', 'User\CoordinationController@update');
+    Route::get('coordination/delete', 'User\CoordinationController@delete')->name('delete');
     Route::get('coordination/show', 'User\CoordinationController@show')->name('show');
     
     Route::get('profile/create', 'User\ProfileController@add');

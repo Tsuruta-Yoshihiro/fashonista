@@ -75,21 +75,21 @@
                                                 <img src="{{ asset('/storage/image/'. $post->image_path) }}" width="556" height="742">
                                             </p>
                                         </div>
-                                    </div>
-                                    <div id="content_sub">
-                                        <div id="action" class="content_bg">
-                                            <div id="function_ btn">
-                                                <div class="container2 clearfix">
-                                                    <div class="card-body pt-0 pb-2 pl-1">
-                                                         <div class="like_icon">
-                                                             <!-- TODO -->
-                                                             <!-- いいねボタン、いいね数の表示 -->
-                                                         </div>
-                                                    </div>
+                                    
+                                        <div class="meta clearfix">
+                                            <div class="card-body pt-0 pb-2 pl-1">
+                                                <div class="like_icon">
+                                                    <post-like
+                                                      :initial-is-liked-by='@json($post->isLikedBy(Auth::user()))'
+                                                      :initial-likes-count='@json($post->likescount)'
+                                                      :authorized='@json(Auth::check())'
+                                                      endpoint="{{ route('like', ['post' => $post]) }}"
+                                                    >
+                                                     </post-like>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div>    
                                 </div>
                             </div>
                            {{ csrf_field() }}

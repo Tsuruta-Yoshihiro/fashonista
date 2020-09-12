@@ -94,6 +94,7 @@ class CoordinationController extends Controller
         // Post Modelからデータ取得
         $posts = Post::find($request->id);
         $coordination_form = $request->all();
+        
         if (isset($coordination_form['image'])) {
             $path = $request->file('image')->store('public/image');
             $posts->image_path = basename($path);

@@ -36,4 +36,11 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
+    
+    /** TODO：ログアウト後にトップページへ遷移させる（登録していないユーザーにもトップページへアクセスできるようにする）
+    protected function loggedOut(\Illuminate\Http\Request $request)
+    {
+        return redirect('/top');
+    }
+    */
 }

@@ -18,6 +18,7 @@
         <!--Fonts-->
         <link rel="dns-prefetch" href="https://fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,600" rel="stylesheet" type="text/css">
+        <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
         
         <!--Style-->
         <link href="{{ secure_asset('css/app.css') }}" rel="stylesheet">

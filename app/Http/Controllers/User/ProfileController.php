@@ -28,6 +28,38 @@ class ProfileController extends Controller
         return redirect('user/profile/create');
     }
     
+    public function mypages(Request $request)
+    {
+        //ログインユーザー情報取得
+        $auth = Auth::user();
+        $user = User::where('id', $request->id)->first();
+        
+        $posts = Post::where('user_id', $request->id)->latest('id')->get();
+        
+        // コーディネート投稿数をカウント
+        $count_posts = Post::where('user_id', $request->id)->count();
+        
+        // ログインユーザーが表示しようとしているユーザーをフォローしていれば、trueを返す
+        $is_following = Follow::where('follower_id', $auth->id)->where('followee_id', $request->id)->exists();
+        // フォロー数をカウント
+        $count_followings = Follow::where('follower_id', $request->id)->count();
+        // フォロワー数をカウント
+        $count_followers = Follow::where('followee_id', $request->id)->count();
+        // いいね数をカウント
+        $count_likes = Like::where('user_id', $request->id)->count();
+        
+        return view('user.profile.mypages', [
+            'posts' => $posts, 
+            'show_id' => $request->id,
+            'user_info' => $user,
+            'auth' => $auth,
+            'is_following' => $is_following,
+            'count_followings' => $count_followings,
+            'count_followers' => $count_followers,
+            'count_posts' => $count_posts,
+            'count_likes' => $count_likes
+         ]);
+    }
     
     //プロフィール編集
     public function edit(Request $request)
@@ -85,39 +117,6 @@ class ProfileController extends Controller
         
         User::where('id',$request->user_id)->update($param);
         return redirect('user/profile/mypages'. $request->user()->id);
-    }
-    
-    public function mypages(Request $request)
-    {
-        //ログインユーザー情報取得
-        $auth = Auth::user();
-        $user = User::where('id', $request->id)->first();
-        
-        // コーディネート投稿数をカウント
-        $count_posts = Post::where('user_id', $request->id)->count();
-        
-        // ログインユーザーが表示しようとしているユーザーをフォローしていれば、trueを返す
-        $is_following = Follow::where('follower_id', $auth->id)->where('followee_id', $request->id)->exists();
-        // フォロー数をカウント
-        $count_followings = Follow::where('follower_id', $request->id)->count();
-        // フォロワー数をカウント
-        $count_followers = Follow::where('followee_id', $request->id)->count();
-        // いいね数をカウント
-        $count_likes = Like::where('user_id', $request->id)->count();
-        
-        $posts = Post::where('user_id', $request->id)->get();
-        
-        return view('user.profile.mypages', [
-            'posts' => $posts, 
-            'show_id' => $request->id,
-            'user_info' => $user,
-            'auth' => $auth,
-            'is_following' => $is_following,
-            'count_followings' => $count_followings,
-            'count_followers' => $count_followers,
-            'count_posts' => $count_posts,
-            'count_likes' => $count_likes
-         ]);
     }
     
     // フォロー中ユーザー表示

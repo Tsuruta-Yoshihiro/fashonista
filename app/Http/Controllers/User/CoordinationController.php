@@ -26,11 +26,21 @@ class CoordinationController extends Controller
     
     public function top(Request $request)
     {
-        $posts = Post::all();
-        $posts = Post::where('user_id', $request->id)->get();
+        $auth = Auth::user();
+        $user = User::where('id', $request->id)->first();
+        
+        // ユーザー登録している全ユーザーの投稿を最新順に取得し、８件表示する
+        $new_posts = Post::latest()->paginate(8);
+        
+        // ユーザー登録している全ユーザーの投稿をランダムに取得し、８件表示する
+        $rand_posts = Post::inRandomOrder()->paginate(8);
         
         return view('/top', [
-            'posts' => $posts
+            'show_id' => $request->id,
+            'user_info' => $user,
+            'auth' => $auth,
+            'new_posts' => $new_posts,
+            'rand_posts' => $rand_posts
             ]);
     }
     

@@ -13,10 +13,12 @@
         
         <!--Scripts-->
         <script src="{{ secure_asset('js/app.js') }}" defer></script>
+        <script scr="{{ secure_asset('js/mypages.js') }}" defer></script>
         
         <!--Fonts-->
         <link rel="dns-prefetch" href="https://fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,600" rel="stylesheet" type="text/css">
+        <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
         
         <!--Style-->
         <link href="{{ secure_asset('css/app.css') }}" rel="stylesheet">
@@ -26,7 +28,7 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
+                <a class="navbar-brand" href="{{ url('/top') }}">
                     {{ config('app.name', 'Fashonista') }}
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">

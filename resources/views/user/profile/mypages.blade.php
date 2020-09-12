@@ -124,9 +124,7 @@
                              @foreach($posts as $post)
                                  <li class="private">
                                      <div class="imagelist">
-                                         <?php $str = "/user/coordination/show?id=" . $post->user_id . "&post_id=" . $post->id; ?>
-                                         
-                                         <a href="{{ url($str) }}">
+                                         <a href="{{ url('/user/coordination/show?id=' . $post->user_id . "&post_id=" . $post->id) }}">
                                            <img src="{{ secure_asset('storage/image/' . $post->image_path) }}"></img>
                                          </a>
                                      </div>     
@@ -138,7 +136,6 @@
                                                    :initial-likes-count='@json($post->likescount)'
                                                    :authorized='@json(Auth::check())'
                                                    endpoint="{{ route('like', ['post' => $post]) }}"
-                                                   
                                                  >
                                                  </post-like>
                                              </div>

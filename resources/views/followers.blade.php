@@ -127,7 +127,7 @@
                                                                         </a>
                                                                     </li>
                                                                     <li>
-                                                                        <a href="{{ route('followers', ['id' => $user->id]) }}" >
+                                                                        <a href="{{ route('followings', ['id' => $user->id]) }}" >
                                                                             {{ $cntFolloweeFollowees[$i] }}
                                                                             <span>フォロワー</span>
                                                                         </a>

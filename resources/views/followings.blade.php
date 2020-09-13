@@ -142,7 +142,7 @@
                                                                     @else
                                                                     <div>
                                                                         <a href="{{ action('User\FollowController@destroy', ['id' => $user_info->id]) }}" class="over" >
-                                                                            <button type="submit" class="btn btn-danger">フォローする</button>
+                                                                            <button type="submit" class="btn btn-danger">フォロー解除</button>
                                                                         </a>
                                                                     </div>
                                                                     @endif

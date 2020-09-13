@@ -116,11 +116,11 @@ class ProfileController extends Controller
         $user->fill($user_form)->save();
         
         User::where('id',$request->user_id)->update($param);
-        return redirect('user/profile/mypages'. $request->user()->id);
+        return redirect('user/profile/mypages?id=' . $request->user()->id);
     }
     
     // フォロー中ユーザー表示
-    public function followings(Request $request)
+    public function followings(Request $request) 
     {
         //ログインユーザー情報の取得
         $auth = Auth::user();

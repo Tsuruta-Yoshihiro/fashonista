@@ -46,6 +46,7 @@ class CoordinationController extends Controller
     
     public function create(Request $request)
     {
+        
         $post = new Post;
         $form = $request->all();
         
@@ -66,10 +67,12 @@ class CoordinationController extends Controller
      public function edit(Request $request)
     {
         $posts = Post::find($request->id);
-        
+        // TODO条件分岐追加　存在しないpost_idの場合は、TOPページを表示する
+        //$user = User::where('id', $request->id)->first();
         return view('user.coordination.edit', [
             'coordination_form' => $posts,
             'posts' => $posts
+            //_'user' => $user,
             ]);
     }
     
@@ -93,6 +96,7 @@ class CoordinationController extends Controller
         
         // Post Modelからデータ取得
         $posts = Post::find($request->id);
+        //dd($posts);
         $coordination_form = $request->all();
         
         if (isset($coordination_form['image'])) {
@@ -105,6 +109,7 @@ class CoordinationController extends Controller
         }
         unset($coordination_form['_token']);
         $posts->fill($coordination_form)->save();
+        //$user = User::where('id', $request->id)->first();
         
         return redirect('user/profile/mypages?id=');
 
@@ -113,8 +118,9 @@ class CoordinationController extends Controller
     public function delete(Request $request)
     {
         $posts = Post::find($request->id);
+        
         $posts->delete();
-        return redirect('user/profile/mypages?id=');
+        return redirect('user/profile/mypages?id='. $request->user_id);
     }
     
     public function show(Request $request)

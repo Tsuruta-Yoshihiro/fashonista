@@ -58,19 +58,24 @@
                                                  </div>
                                             </div>
                                        </section>
+                                       
                                        <div class="post_delete">
-                                            <input type="submit" class="btn btn-primary" value="削除">
-                                        </div>
+                                            <input type="submit" formaction="{{ action('User\CoordinationController@delete') }}" class="btn btn-primary" value="削除する">
+                                       </div>
                                    </div>
                                
                                    <div id="processing">
                                        <ul class="clearfix">
                                            <li class="upload">
-                                               <input type="submit" class="btn btn-primary" value="投稿内容を修正する">
+                                               <input type="submit" formaction="{{ action('User\CoordinationController@update') }}"class="btn btn-primary" value="投稿内容を修正する">
                                            </li>
                                        </ul>
                                    </div>
                                {{ csrf_field() }}
+                               <input type="hidden" name="id" value="{{ $posts->id }}">
+                               <input type="hidden" name="user_id" value="{{ $posts->user_id }}">
+                               <input type="hidden" name="image_path" value="{{ $posts->image_path }}">
+                              
                            </form>
                        </div>
                    </div>

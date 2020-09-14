@@ -84,7 +84,7 @@ class CoordinationController extends Controller
         ];
         //エラーメッセージ
         $messages = [
-            'image_path.required' => 'ユーザー名が未入力です',
+            'image_path.required' => '画像が未入力です',
         ];
         $validator = Validator::make($request->all(),$rules,$messages);
         
@@ -109,9 +109,8 @@ class CoordinationController extends Controller
         }
         unset($coordination_form['_token']);
         $posts->fill($coordination_form)->save();
-        //$user = User::where('id', $request->id)->first();
-        
-        return redirect('user/profile/mypages?id=');
+       
+        return redirect('user/profile/mypages?id='. $request->user_id);
 
     }
     

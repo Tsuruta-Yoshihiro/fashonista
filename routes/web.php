@@ -20,7 +20,6 @@ Route::group(['prefix' => 'user', 'middleware' => 'auth'], function() {
     
     Route::get('coordination/create', 'User\CoordinationController@add');
     Route::post('coordination/create', 'User\CoordinationController@create');
-    //Route::get('coordination', 'User\CoordinationController@index');
     Route::get('coordination/edit', 'User\CoordinationController@edit');
     Route::post('coordination/edit', 'User\CoordinationController@update');
     Route::get('coordination/delete', 'User\CoordinationController@delete')->name('delete');

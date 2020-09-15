@@ -115,7 +115,7 @@ class ProfileController extends Controller
         // レコードアップデート
         $user->fill($user_form)->save();
         
-        User::where('id',$request->user_id)->update($param);
+        User::where('id',$request->user_id);
         return redirect('user/profile/mypages?id=' . $request->user()->id);
     }
     
@@ -142,7 +142,7 @@ class ProfileController extends Controller
         //followingsにはどういった情報が入っているか
         //画面で表示されているユーザーがフォローしているユーザー一覧
         $followings = Follow::where('follower_id', $request->id)->get();
-        
+        //dd($followings); 
         //followsテーブルのfollowee_idに登録されているユーザー（usersテーブルの情報）のname,thumbnail情報を取得する
         $users = DB::table('follows')
             ->join('users', 'follows.followee_id', '=', 'users.id')

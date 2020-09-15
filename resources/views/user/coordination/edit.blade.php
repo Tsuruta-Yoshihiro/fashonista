@@ -75,7 +75,7 @@
                                <input type="hidden" name="id" value="{{ $posts->id }}">
                                <input type="hidden" name="user_id" value="{{ $posts->user_id }}">
                                <input type="hidden" name="image_path" value="{{ $posts->image_path }}">
-                               <input type="hidden" name="coordination_form" value="{{ $posts->coordination_form }}">
+                               <input type="hidden" name="coordination_form" value="{{ $coordination_form->image_path }}">
                            </form>
                        </div>
                    </div>

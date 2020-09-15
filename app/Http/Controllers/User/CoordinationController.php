@@ -46,7 +46,21 @@ class CoordinationController extends Controller
     
     public function create(Request $request)
     {
-        
+        // Validator チェック
+        $rules = [
+            'image_path' => 'required',
+        ];
+        //エラーメッセージ
+        $messages = [
+            'image_path.required' => '画像が未入力です',
+        ];
+        $validator = Validator::make($request->all(),$rules,$messages);
+        if($validator->fails()){
+            return redirect('/user/coordination/create')
+                ->withErrors($validator)
+                ->withInput();
+        }
+
         $post = new Post;
         $form = $request->all();
         
@@ -67,7 +81,7 @@ class CoordinationController extends Controller
      public function edit(Request $request)
     {
         $posts = Post::find($request->id);
-        // TODO条件分岐追加　存在しないpost_idの場合は、TOPページを表示する
+        // TODO：条件分岐追加　存在しないpost_idの場合は、TOPページを表示する
         //$user = User::where('id', $request->id)->first();
         return view('user.coordination.edit', [
             'coordination_form' => $posts,
@@ -96,7 +110,6 @@ class CoordinationController extends Controller
         
         // Post Modelからデータ取得
         $posts = Post::find($request->id);
-        //dd($posts);
         $coordination_form = $request->all();
         
         if (isset($coordination_form['image'])) {

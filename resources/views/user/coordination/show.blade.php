@@ -77,7 +77,7 @@
                                         </div>
                                     
                                         <div class="meta clearfix">
-                                            <div class="card-body pt-0 pb-2 pl-1">
+                                            <div class="card-body pt-0 pb-0 pl-1">
                                                 <div class="like_icon">
                                                     <post-like
                                                       :initial-is-liked-by='@json($post->isLikedBy(Auth::user()))'
@@ -88,6 +88,9 @@
                                                      </post-like>
                                                 </div>
                                             </div>
+                                        </div>
+                                        <div class="coordination_summary">
+                                            
                                         </div>
                                     </div>    
                                 </div>

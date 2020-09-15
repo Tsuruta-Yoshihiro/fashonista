@@ -60,6 +60,9 @@
                                                  document.getElementById('logout-form').submit();">
                                     {{ __('Logout') }}
                                 </a>
+                                <a class="dropdown-item" href="{{ url('/user/profile/mypages?id='. $auth->id) }}">
+                                    {{ __('Mypage') }}
+                                </a>
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                     @csrf
                                 </form>

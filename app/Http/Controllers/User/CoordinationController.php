@@ -46,21 +46,7 @@ class CoordinationController extends Controller
     
     public function create(Request $request)
     {
-        // Validator チェック
-        $rules = [
-            'image_path' => 'required',
-        ];
-        //エラーメッセージ
-        $messages = [
-            'image_path.required' => '画像が未入力です',
-        ];
-        $validator = Validator::make($request->all(),$rules,$messages);
-        if($validator->fails()){
-            return redirect('/user/coordination/create')
-                ->withErrors($validator)
-                ->withInput();
-        }
-
+        
         $post = new Post;
         $form = $request->all();
         
@@ -107,6 +93,7 @@ class CoordinationController extends Controller
                 ->withErrors($validator)
                 ->withInput();
         }
+        
         
         // Post Modelからデータ取得
         $posts = Post::find($request->id);

@@ -2,7 +2,7 @@
 @extends('layouts.profile')
 
 {{-- profile.blade.phpの@yield('title')に'新規登録ページ'を埋め込む --}}
-@section('title', '新規登録ページ')
+@section('title', 'Fashonista')
 
 {{-- profile.blade.phpの@yield('content')に以下タグを埋め込む --}}
 @section('content')

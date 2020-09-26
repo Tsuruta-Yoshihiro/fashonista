@@ -1,5 +1,5 @@
 @extends('layouts.mypages')
-@section('title', 'マイページ')
+@section('title', 'Fashonista')
 @section('content')
 
 <div class="container">
@@ -40,7 +40,7 @@
                         </div>
                         @else
                         <div class="btn_follow">
-                             @if ($is_following)
+                             @if($is_following)
                              <div>
                                   <a href="{{ action('User\FollowController@destroy', ['id' => $user_info->id]) }}" class="over" >
                                       <button type="submit" class="btn btn-danger">フォロー解除</button>
@@ -123,6 +123,7 @@
                          <ul class="list clearfix">
                              @foreach($posts as $post)
                                  <li class="private">
+                                     @if($post->user_id)
                                      <div class="imagelist">
                                          <a href="{{ url('/user/coordination/show?id=' . $post->user_id . "&post_id=" . $post->id) }}">
                                            <img src="{{ secure_asset('storage/image/' . $post->image_path) }}"></img>
@@ -140,7 +141,10 @@
                                                  </post-like>
                                              </div>
                                          </div>
-                                     </div>     
+                                     </div>
+                                     @else
+                                     <a href="{{ url('/top') }}">
+                                     @endif
                                  </li>
                              @endforeach
                          </ul>

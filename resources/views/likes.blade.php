@@ -1,5 +1,5 @@
 @extends('layouts.likes')
-@section('title', 'お気に入り一覧')
+@section('title', 'Fashonista')
 @section('content')
 <div class="container">
     <div class="row">
@@ -102,7 +102,7 @@
                              @foreach($likes as $post)
                                  <li class="private">
                                      <div class="imagelist">
-                                         <a href="{{ url('/user/coordination/edit?id='. $post->id) }}">
+                                         <a href="{{ url('/user/coordination/show?id=' . $post->user_id . "&post_id=" . $post->id) }}">
                                            <img src="{{ secure_asset('storage/image/' . $post->image_path) }}"></img>
                                          </a>
                                      </div>     

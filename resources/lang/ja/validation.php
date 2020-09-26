@@ -79,7 +79,7 @@ return [
     'max' => [
         'numeric' => 'The :attribute may not be greater than :max.',
         'file' => 'The :attribute may not be greater than :max kilobytes.',
-        'string' => 'The :attribute may not be greater than :max characters.',
+        'string' => ':max文字以内で入力してください。',
         'array' => 'The :attribute may not have more than :max items.',
     ],
     'mimes' => 'The :attribute must be a file of type: :values.',
@@ -146,7 +146,9 @@ return [
     */
 
     'attributes' => [
-        'img_upload_file' => '画像'
+        'img_upload_file' => '画像',
+        'image_path' => '画像',
+        'image' => '画像',
+        'coordination_summary' => '投稿詳細'
         ],
-
 ];

@@ -13,8 +13,8 @@ class Post extends Model
     protected $fillable = [
         'image_path',
         'coordination_summary',
-        
     ];
+    
     
     // user
     public function user(): BelongTo

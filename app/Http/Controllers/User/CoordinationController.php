@@ -6,13 +6,13 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 use Intervention\Image\ImageManagerStatic as Image;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Requests\PostRequest;
 use App\Post;
 use APP\User;
-use Validator;
 use App\Follow;
 use App\Like;
 
@@ -46,6 +46,19 @@ class CoordinationController extends Controller
     
     public function create(Request $request)
     {
+        // Validator チェック
+        $rules = [
+            'image' => 'required|mimes:jpeg,png,jpg',
+            'coordination_summary' => 'max:1000',
+        ];
+        
+        $validator = Validator::make($request->all(), $rules);
+        
+        if ($validator->fails()) {
+            return redirect('/user/coordination/create')
+                ->withErrors($validator)
+                ->withInput();
+        }
         
         $post = new Post;
         $form = $request->all();
@@ -68,11 +81,12 @@ class CoordinationController extends Controller
     {
         $posts = Post::find($request->id);
         // TODO：条件分岐追加　存在しないpost_idの場合は、TOPページを表示する
-        //$user = User::where('id', $request->id)->first();
+        if (empty($posts)) {
+            abort(404);
+        }
         return view('user.coordination.edit', [
             'coordination_form' => $posts,
             'posts' => $posts
-            //_'user' => $user,
             ]);
     }
     
@@ -80,38 +94,34 @@ class CoordinationController extends Controller
     {
         // Validator チェック
         $rules = [
-            'image_path' => 'required',
+            'image' => 'required|mimes:jpeg,png,jpg',
+            'coordination_summary' => 'max:1000',
         ];
-        //エラーメッセージ
-        $messages = [
-            'image_path.required' => '画像が未入力です',
-        ];
-        $validator = Validator::make($request->all(),$rules,$messages);
         
-        if($validator->fails()){
-            return redirect('/user/coordination/edit')
+        $validator = Validator::make($request->all(), $rules);
+        
+        if ($validator->fails()) {
+            return redirect('user/coordination/edit?id='. $request->id)
                 ->withErrors($validator)
                 ->withInput();
         }
         
-        
         // Post Modelからデータ取得
-        $posts = Post::find($request->id);
+        $post = Post::find($request->id);
         $coordination_form = $request->all();
-        
-        if (isset($coordination_form['image'])) {
-            $path = $request->file('image')->store('public/image');
-            $posts->image_path = basename($path);
-            unset($coordination_form['image']);
-        } elseif (isset($request->remove)) {
-            $posts->image_path = null;
-            unset($coordination_form['remove']);
-        }
         unset($coordination_form['_token']);
-        $posts->fill($coordination_form)->save();
-       
+        unset($coordination_form['image_path']);
+        $file = $request->file('image_path');
+        
+        if(!empty($file)) {
+            $image_path = $request->$file('image_path')->store('public/image');
+            $post->image_path = basename($image_path);
+        }
+        
+        $post->fill($coordination_form)->save();
+        
+        User::where('id',$request->user_id);
         return redirect('user/profile/mypages?id='. $request->user_id);
-
     }
     
     public function delete(Request $request)

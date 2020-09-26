@@ -1,5 +1,5 @@
 @extends('layouts.post')
-@section('title', '投稿編集')
+@section('title', 'Fashonista')
 @section('content')
     <div class="container">
         <div class="row">

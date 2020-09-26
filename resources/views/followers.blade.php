@@ -1,5 +1,5 @@
 @extends('layouts.followers')
-@section('title', 'フォロワー一覧')
+@section('title', 'Fashonista')
 @section('content')
     <div class="container">
         <div class="row">
@@ -30,19 +30,19 @@
                             </div>
                             @else
                             <div class="btn_follow">
-                                 @if ($is_following)
-                                 <div>
-                                      <a href="{{ action('User\FollowController@destroy', ['id' => $user_info->id]) }}" class="over" >
-                                          <button type="submit" class="btn btn-danger">フォロー解除</button>
-                                      </a>
-                                 </div>
-                                 @else
-                                 <div>
+                                @if($is_following)
+                                <div>
+                                    <a href="{{ action('User\FollowController@destroy', ['id' => $user_info->id]) }}" class="over" >
+                                       <button type="submit" class="btn btn-danger">フォロー中</button>
+                                    </a>
+                                </div>
+                                @else
+                                <div>
                                     <a href="{{ action('User\FollowController@store', ['id' => $user_info->id]) }}" class="over" >
                                         <button type="submit" class="btn btn-primary">フォローする</button>
                                     </a>
-                                 </div>
-                                 @endif
+                                </div>
+                                @endif
                             </div>
                             @endif
                         </div>

@@ -2,7 +2,7 @@
 @extends('layouts.edit')
 
 {{-- edit.blade.phpの@yield('title')に'新規登録ページ'を埋め込む --}}
-@section('title', 'プロフィール変更')
+@section('title', 'Fashonista')
 
 {{-- edit.blade.phpの@yield('content')に以下タグを埋め込む --}}
 @section('content')

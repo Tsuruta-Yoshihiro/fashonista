@@ -131,7 +131,6 @@ class ProfileController extends Controller
         
         // ログインユーザーが表示しようとしているユーザーをフォローしていれば、trueを返す
         $is_following = Follow::where('follower_id', $auth->id)->where('followee_id', $request->id)->exists();
-        
         // フォロー数をカウント
         $count_followings = Follow::where('follower_id', $request->id)->count();
         // フォロワー数をカウント
@@ -142,7 +141,7 @@ class ProfileController extends Controller
         //followingsにはどういった情報が入っているか
         //画面で表示されているユーザーがフォローしているユーザー一覧
         $followings = Follow::where('follower_id', $request->id)->get();
-        //dd($followings); 
+        
         //followsテーブルのfollowee_idに登録されているユーザー（usersテーブルの情報）のname,thumbnail情報を取得する
         $users = DB::table('follows')
             ->join('users', 'follows.followee_id', '=', 'users.id')
@@ -186,7 +185,6 @@ class ProfileController extends Controller
         
         // ログインユーザーが表示しようとしているユーザーをフォローしていれば、trueを返す
         $is_following = Follow::where('follower_id', $auth->id)->where('followee_id', $request->id)->exists();
-        
         // フォロー数をカウント
         $count_followings = Follow::where('follower_id', $request->id)->count();
         // フォロワー数をカウント
@@ -255,8 +253,7 @@ class ProfileController extends Controller
     public function likes(Request $request)
     {
         $auth = Auth::user();
-        $select_user = User::where('id', $request->id)->first();
-        
+        $user = User::where('id', $request->id)->first();
         // コーディネート投稿数をカウント
         $count_posts = Post::where('user_id', $request->id)->count();
         
@@ -287,21 +284,18 @@ class ProfileController extends Controller
         }
         
         $posts = Post::where('user_id', $request->id)->get();
-        //$likes = Like::where('post_id', $request->id)->get();
         $likes = Post::select()
             ->join('likes', 'posts.user_id', '=', 'likes.user_id')
-            
             ->select('posts.image_path', 'posts.coordination_summary', 'posts.id')
             ->where('likes.user_id', $request->id)
             
             ->groupBy('likes.post_id')
             ->get();
-        //$likes = $posts->likes;
-        //dd($likes);
-        return view('user.profile.mypages', [
+
+        return view('likes', [
             'posts' => $likes,
             'show_id' => $request->id,
-            'user_info' => $select_user,
+            'user_info' => $user,
             'auth' => $auth,
             'is_following' => $is_following,
             'count_followings' => $count_followings,
@@ -309,21 +303,8 @@ class ProfileController extends Controller
             'count_posts' => $count_posts,
             'followings' => $followings,
             'users' => $users,
-            'count_likes' => $count_likes
-            //'cntFolloweePost' => $cntFolloweePost,
-            //'cntFolloweeFollowees' => $cntFolloweeFollowees,
-            //'likes' => $likes
-            
-            //'posts' => $posts, 
-            //'show_id' => $request->id,
-            //'user_info' => $user,
-            //'auth' => $auth,
-            //'is_following' => $is_following,
-            //'count_followings' => $count_followings,
-            //'count_followers' => $count_followers,
-            //'count_posts' => $count_posts,
-            //'count_likes' => $count_likes,
+            'count_likes' => $count_likes,
+            'likes' => $likes
          ]);
     }
-
 }

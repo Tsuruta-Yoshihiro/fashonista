@@ -24,8 +24,8 @@ class PostRequest extends FormRequest
     public function rules()
     {
         return [
-            'image_path' => 'required',
-            'coordination_summary'=> 'required|max:2000'
+            'image_path' => 'required|mimes:jpeg,png,jpg',
+            'coordination_summary'=> 'max:1000'
         ];
     }
 }

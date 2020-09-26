@@ -1,5 +1,5 @@
 @extends('layouts.top')
-@section('title', 'トップページ')
+@section('title', 'Fashonista')
 @section('content')
 
 <div class="container">

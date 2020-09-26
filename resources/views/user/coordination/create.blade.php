@@ -2,7 +2,7 @@
 @extends('layouts.post')
 
 {{-- post.blade.phpの@yield('title')に'コーディネート投稿'を埋め込む --}}
-@section('title', 'コーディネイト投稿')
+@section('title', 'Fashonista')
 
 {{-- post.blade.phpの@yield('content')に以下タグを埋め込む --}}
 @section('content')

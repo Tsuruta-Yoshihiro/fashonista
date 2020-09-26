@@ -60,8 +60,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::group(['prefix' => 'user/{id}'], function () {
         Route::match(['get', 'post'], 'follow', 'User\FollowController@store')->name('follow');
         Route::match(['get', 'post'], 'unfollow', 'User\FollowController@destroy')->name('unfollow');
-        
-        Route::resource('posts', 'User\ProfileController', ['only' =>['create', 'store', 'destroy']]);
+        //Route::resource('posts', 'User\ProfileController', ['only' =>['create', 'store', 'destroy']]);
     });
     
 });    

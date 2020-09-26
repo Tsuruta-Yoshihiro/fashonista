@@ -1,5 +1,5 @@
 @extends('layouts.show')
-@section('title', '投稿詳細')
+@section('title', 'Fashonista')
 @section('content')
 <div class="container">
     <div class="row">
@@ -32,26 +32,24 @@
                                     @if($auth->id == $show_id)
                                     <div class="btn_edit">
                                         <p class="btn_profileupdate">
-                                            <!--  -->
                                             <a href="{{ url('/user/coordination/edit?id='. $post->id) }}" class="over">投稿を編集する</a>
-                                            
                                         </p>
                                     </div>
                                     @else
                                     <div class="btn_follow">
-                                         @if ($is_following)
-                                         <div>
-                                              <a href="{{ action('User\FollowController@destroy', ['id' => $user_info->id]) }}" class="over" >
-                                                  <button type="submit" class="btn btn-danger">フォロー解除</button>
-                                              </a>
-                                         </div>
-                                         @else
-                                         <div>
+                                        @if ($is_following)
+                                        <div>
+                                            <a href="{{ action('User\FollowController@destroy', ['id' => $user_info->id]) }}" class="over" >
+                                                <button type="submit" class="btn btn-danger">フォロー解除</button>
+                                            </a>
+                                        </div>
+                                        @else
+                                        <div>
                                             <a href="{{ action('User\FollowController@store', ['id' => $user_info->id]) }}" class="over" >
                                                 <button type="submit" class="btn btn-primary">フォローする</button>
                                             </a>
-                                         </div>
-                                         @endif
+                                        </div>
+                                        @endif
                                     </div>
                                     @endif
                                 </div>
@@ -89,10 +87,14 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="coordination_summary">
-                                            
-                                        </div>
-                                    </div>    
+                                    </div>
+                                    
+                                    <!-- コーディネート詳細 -->
+                                    <div class="coordination_summary">
+                                        <p class="summary_text">
+                                            {{ $post->coordination_summary }}
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
                            {{ csrf_field() }}

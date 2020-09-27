@@ -6,13 +6,13 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Validator;
 use Intervention\Image\ImageManagerStatic as Image;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Requests\PostRequest;
 use App\Post;
 use APP\User;
+use Validator;
 use App\Follow;
 use App\Like;
 
@@ -109,19 +109,16 @@ class CoordinationController extends Controller
         // Post Modelからデータ取得
         $post = Post::find($request->id);
         $coordination_form = $request->all();
+        if (isset($coordination_form['image_path'])) {
+            $path = $request->file('image')->store('public/image');
+            $post->image_path = basename($path);
+        }
         unset($coordination_form['_token']);
         unset($coordination_form['image_path']);
-        $file = $request->file('image_path');
-        
-        if(!empty($file)) {
-            $image_path = $request->$file('image_path')->store('public/image');
-            $post->image_path = basename($image_path);
-        }
-        
         $post->fill($coordination_form)->save();
         
         User::where('id',$request->user_id);
-        return redirect('user/profile/mypages?id='. $request->user_id);
+        return redirect('user/profile/mypages?id='. $request->user()->id);
     }
     
     public function delete(Request $request)

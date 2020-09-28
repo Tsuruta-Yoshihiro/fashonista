@@ -81,9 +81,7 @@ class CoordinationController extends Controller
     {
         $posts = Post::find($request->id);
         // TODO：条件分岐追加　存在しないpost_idの場合は、TOPページを表示する
-        if (empty($posts)) {
-            abort(404);
-        }
+        
         return view('user.coordination.edit', [
             'coordination_form' => $posts,
             'posts' => $posts
@@ -109,12 +107,15 @@ class CoordinationController extends Controller
         // Post Modelからデータ取得
         $post = Post::find($request->id);
         $coordination_form = $request->all();
-        if (isset($coordination_form['image_path'])) {
-            $path = $request->file('image')->store('public/image');
-            $post->image_path = basename($path);
-        }
         unset($coordination_form['_token']);
         unset($coordination_form['image_path']);
+        $file = $request->file('image');
+        
+        if (!empty($file)) {
+            $image_path = $request->file('image')->store('public/image');
+            $post->image_path = basename($image_path);
+        }
+        
         $post->fill($coordination_form)->save();
         
         User::where('id',$request->user_id);

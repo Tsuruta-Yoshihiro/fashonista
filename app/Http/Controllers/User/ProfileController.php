@@ -48,6 +48,13 @@ class ProfileController extends Controller
         // いいね数をカウント
         $count_likes = Like::where('user_id', $request->id)->count();
         
+        // 存在しないuser_idの場合はtrueを返す。
+        // falseの場合はトップページへ自動で遷移（URLを手動で変更され、エラー画面を表示させないため）
+        $doesnt_exists = User::where('id', $auth->id)->doesntExist();
+        // 存在しているuser_idの場合はtrueを返す。
+        $exists = User::where('id', $request->id)->where('id', $request->id)->exists();
+        
+        if($doesnt_exists !== $exists) {
         return view('user.profile.mypages', [
             'posts' => $posts, 
             'show_id' => $request->id,
@@ -59,6 +66,9 @@ class ProfileController extends Controller
             'count_posts' => $count_posts,
             'count_likes' => $count_likes
          ]);
+        }else{
+         return redirect('top');
+        }
     }
     
     //プロフィール編集

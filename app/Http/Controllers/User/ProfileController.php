@@ -52,7 +52,7 @@ class ProfileController extends Controller
         // falseの場合はトップページへ自動で遷移（URLを手動で変更され、エラー画面を表示させないため）
         $doesnt_exists = User::where('id', $auth->id)->doesntExist();
         // 存在しているuser_idの場合はtrueを返す。
-        $exists = User::where('id', $request->id)->where('id', $request->id)->exists();
+        $exists = User::where('id', $request->id)->exists();
         
         if($doesnt_exists !== $exists) {
         return view('user.profile.mypages', [

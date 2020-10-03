@@ -138,15 +138,15 @@
                                                         <div class="sub btn_block">
                                         					<div class="btn2_follow">
                                                                 <div class="btn_follow">
-                                                                    @if ($is_following)
+                                                                    @if($followers_list)
                                                                     <div>
-                                                                         <a href="{{ action('User\FollowController@destroy', ['id' => $user_info->id]) }}" class="over" >
-                                                                             <button type="submit" class="btn btn-danger">フォロー解除</button>
+                                                                         <a href="{{ action('User\FollowController@destroy', ['id' => $user->id]) }}" class="over" >
+                                                                             <button type="submit" class="btn btn-danger">フォロー中</button>
                                                                          </a>
                                                                     </div>
                                                                     @else
                                                                     <div>
-                                                                         <a href="{{ action('User\FollowController@store', ['id' => $user_info->id]) }}" class="over" >
+                                                                         <a href="{{ action('User\FollowController@store', ['id' => $user->id]) }}" class="over" >
                                                                              <button type="submit" class="btn btn-primary">フォローする</button>
                                                                          </a>
                                                                     </div>

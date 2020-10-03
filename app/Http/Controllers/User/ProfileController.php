@@ -138,9 +138,10 @@ class ProfileController extends Controller
          
         // コーディネート投稿数をカウント
         $count_posts = Post::where('user_id', $request->id)->count();
-        
         // ログインユーザーが表示しようとしているユーザーをフォローしていれば、trueを返す
         $is_following = Follow::where('follower_id', $auth->id)->where('followee_id', $request->id)->exists();
+        $followings_list = Follow::where('follower_id', $auth->id)->exists();
+        
         // フォロー数をカウント
         $count_followings = Follow::where('follower_id', $request->id)->count();
         // フォロワー数をカウント
@@ -150,7 +151,7 @@ class ProfileController extends Controller
         
         //followingsにはどういった情報が入っているか
         //画面で表示されているユーザーがフォローしているユーザー一覧
-        $followings = Follow::where('follower_id', $request->id)->get();
+        $followings = Follow::where('follower_id', $request->id)->first();
         
         //followsテーブルのfollowee_idに登録されているユーザー（usersテーブルの情報）のname,thumbnail情報を取得する
         $users = DB::table('follows')
@@ -179,7 +180,8 @@ class ProfileController extends Controller
             'users' => $users,
             'cntFollowerPost' => $cntFollowerPost,
             'cntFollowerFollowers' => $cntFollowerFollowers,
-            'count_likes' => $count_likes
+            'count_likes' => $count_likes,
+            'followings_list' => $followings_list
          ]);
     }
     
@@ -195,13 +197,17 @@ class ProfileController extends Controller
         
         // ログインユーザーが表示しようとしているユーザーをフォローしていれば、trueを返す
         $is_following = Follow::where('follower_id', $auth->id)->where('followee_id', $request->id)->exists();
+        $followers_list = Follow::where('followee_id', $auth->id)->get();
+        $doesnt_exists = Follow::where('followee_id', $auth->id)->doesntExist();
+        //dd($followers_list);
+        
         // フォロー数をカウント
         $count_followings = Follow::where('follower_id', $request->id)->count();
         // フォロワー数をカウント
         $count_followers = Follow::where('followee_id', $request->id)->count();
         // いいね数をカウント
         $count_likes = Like::where('user_id', $request->id)->count();
-        $followers = Follow::where('followee_id', $request->id)->get();
+        $followers = Follow::where('followee_id', $request->id)->exists();
         
         $users = DB::table('follows')
             ->join('users', 'follows.follower_id', '=', 'users.id')
@@ -229,7 +235,8 @@ class ProfileController extends Controller
             'users' => $users,
             'cntFolloweePost' => $cntFolloweePost,
             'cntFolloweeFollowees' => $cntFolloweeFollowees,
-            'count_likes' => $count_likes
+            'count_likes' => $count_likes,
+            'followers_list' => $followers_list
          ]);
     }
     

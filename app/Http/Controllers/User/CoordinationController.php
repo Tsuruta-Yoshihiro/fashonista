@@ -148,22 +148,19 @@ class CoordinationController extends Controller
             ->select('users.name', 'users.thumbnail', 'users.id')
             ->where('posts.id', $request->post_id)
             ->get();
-        //dd($post_user);
         
         // 存在しないuser_idの場合はtrueを返す。
         // falseの場合はトップページへ自動で遷移（URLを手動で変更され、エラー画面を表示させないため
         $doesnt_exists = User::where('id', $request->id)->doesntExist();
         
         // 存在しているpost_idの場合はtrueを返す。
-        //$exists = Post::where('id', $request->id)->exists();
         $exists = DB::table('posts')
             ->join('users', 'posts.user_id', '=', 'users.id')
             ->select('users.name', 'users.thumbnail', 'users.id')
             ->where('posts.id', $request->post_id)
             ->exists();
-        //dd($exists);
         
-        if($exists) {
+        if($doesnt_exists !== $exists) {
         return view('user.coordination.show', [
             'auth' => $auth,
             'user_info' => $select_user,

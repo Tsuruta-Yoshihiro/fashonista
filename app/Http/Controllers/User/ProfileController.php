@@ -140,7 +140,6 @@ class ProfileController extends Controller
         $count_posts = Post::where('user_id', $request->id)->count();
         // ログインユーザーが表示しようとしているユーザーをフォローしていれば、trueを返す
         $is_following = Follow::where('follower_id', $auth->id)->where('followee_id', $request->id)->exists();
-        $followings_list = Follow::where('follower_id', $auth->id)->exists();
         
         // フォロー数をカウント
         $count_followings = Follow::where('follower_id', $request->id)->count();
@@ -167,7 +166,14 @@ class ProfileController extends Controller
             $cntFollowerPost[] = Post::where('user_id', $user->id)->count();
             $cntFollowerFollowers[] = Follow::where('followee_id', $user->id)->count();
         }
-             
+        
+        // 存在しないuser_idの場合はtrueを返す。
+        // falseの場合はトップページへ自動で遷移（URLを手動で変更され、エラー画面を表示させないため）
+        $doesnt_exists = User::where('id', $auth->id)->doesntExist();
+        // 存在しているuser_idの場合はtrueを返す。
+        $exists = User::where('id', $request->id)->exists();
+        
+        if($doesnt_exists !== $exists) {
         return view('followings', [
             'show_id' => $request->id,
             'user_info' => $select_user,
@@ -180,9 +186,11 @@ class ProfileController extends Controller
             'users' => $users,
             'cntFollowerPost' => $cntFollowerPost,
             'cntFollowerFollowers' => $cntFollowerFollowers,
-            'count_likes' => $count_likes,
-            'followings_list' => $followings_list
+            'count_likes' => $count_likes
          ]);
+        }else{
+         return redirect('top');
+        }
     }
     
     // フォロワーユーザー表示
@@ -197,9 +205,6 @@ class ProfileController extends Controller
         
         // ログインユーザーが表示しようとしているユーザーをフォローしていれば、trueを返す
         $is_following = Follow::where('follower_id', $auth->id)->where('followee_id', $request->id)->exists();
-        $followers_list = Follow::where('followee_id', $auth->id)->get();
-        $doesnt_exists = Follow::where('followee_id', $auth->id)->doesntExist();
-        //dd($followers_list);
         
         // フォロー数をカウント
         $count_followings = Follow::where('follower_id', $request->id)->count();
@@ -221,8 +226,15 @@ class ProfileController extends Controller
         {
             $cntFolloweePost[] = Post::where('user_id', $user->id)->count();
             $cntFolloweeFollowees[] = Follow::where('follower_id', $user->id)->count();
-        }    
+        }
         
+        // 存在しないuser_idの場合はtrueを返す。
+        // falseの場合はトップページへ自動で遷移（URLを手動で変更され、エラー画面を表示させないため）
+        $doesnt_exists = User::where('id', $auth->id)->doesntExist();
+        // 存在しているuser_idの場合はtrueを返す。
+        $exists = User::where('id', $request->id)->exists();
+        
+        if($doesnt_exists !== $exists) {
         return view('followers', [
             'show_id' => $request->id,
             'user_info' => $select_user,
@@ -235,9 +247,11 @@ class ProfileController extends Controller
             'users' => $users,
             'cntFolloweePost' => $cntFolloweePost,
             'cntFolloweeFollowees' => $cntFolloweeFollowees,
-            'count_likes' => $count_likes,
-            'followers_list' => $followers_list
+            'count_likes' => $count_likes
          ]);
+        }else{
+         return redirect('top');
+        }
     }
     
     // フォローする

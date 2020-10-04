@@ -103,7 +103,7 @@
                                              @if($user->id != $show_id)
                                                 <li class="list">
                                                     <div class="container">
-                                                        <div class="main clearfix">
+                                                        <div class="main2 clearfix">
                                                             <div class="img_box">
                                                                 <p class="img">
                                                                     @if($user->thumbnail)
@@ -135,22 +135,30 @@
                                                                 </ul>
                                                             </div>
                                                         </div>
-                                                        <div class="sub btn_block">
+                                                        <div class="sub2 btn_block">
                                         					<div class="btn2_follow">
                                                                 <div class="btn_follow">
-                                                                    @if($followers_list)
-                                                                    <div>
-                                                                         <a href="{{ action('User\FollowController@destroy', ['id' => $user->id]) }}" class="over" >
-                                                                             <button type="submit" class="btn btn-danger">フォロー中</button>
-                                                                         </a>
-                                                                    </div>
+                                                                    @if($auth->id !== $user->id)
+                                                                        @if (auth()->user()->is_following($user->id))
+                                                                        <div>
+                                                                            <a href="{{ action('User\FollowController@destroy', ['id' => $user->id]) }}" class="over" >
+                                                                                <button type="submit" class="btn btn-danger">フォロー中</button>
+                                                                            </a>
+                                                                        </div>
+                                                                        @else
+                                                                        <div>
+                                                                            <a href="{{ action('User\FollowController@store', ['id' => $user->id]) }}" class="over" >
+                                                                                <button type="submit" class="btn btn-primary">フォローする</button>
+                                                                            </a>
+                                                                        </div>
+                                                                        @endif
                                                                     @else
-                                                                    <div>
-                                                                         <a href="{{ action('User\FollowController@store', ['id' => $user->id]) }}" class="over" >
-                                                                             <button type="submit" class="btn btn-primary">フォローする</button>
-                                                                         </a>
+                                                                    <div class="btn_edit">
+                                                                        <p class="btn_profileupdate">
+                                                                            <a href="{{ url('/user/profile/edit') }}" class="over">プロフィール変更</a>
+                                                                        </p>
                                                                     </div>
-                                                                    @endif
+                                                                    @endif    
                                                                 </div>
                                                             </div>
                         				               </div>

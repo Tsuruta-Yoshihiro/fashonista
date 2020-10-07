@@ -315,14 +315,16 @@ class ProfileController extends Controller
         }
         
         $posts = Post::where('user_id', $request->id)->get();
+        
         $likes = Post::select()
             ->join('likes', 'posts.user_id', '=', 'likes.user_id')
             ->select('posts.image_path', 'posts.coordination_summary', 'posts.id')
+            ->addSelect('post_id')
             ->where('likes.user_id', $request->id)
-            
             ->groupBy('likes.post_id')
             ->get();
-
+        //dd($likes);
+        
         return view('likes', [
             'posts' => $likes,
             'show_id' => $request->id,

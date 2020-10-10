@@ -166,7 +166,7 @@ class ProfileController extends Controller
             $cntFollowerPost[] = Post::where('user_id', $user->id)->count();
             $cntFollowerFollowers[] = Follow::where('followee_id', $user->id)->count();
         }
-        
+        //dd($cntFollowerPost); 
         // 存在しないuser_idの場合はtrueを返す。
         // falseの場合はトップページへ自動で遷移（URLを手動で変更され、エラー画面を表示させないため）
         $doesnt_exists = User::where('id', $auth->id)->doesntExist();
@@ -300,29 +300,15 @@ class ProfileController extends Controller
         // いいね数をカウント
         $count_likes = Like::where('user_id', $request->id)->count();
         
-        $users = DB::table('likes')
-            ->join('users', 'likes.user_id', '=', 'users.id')
-            ->select('users.name', 'users.thumbnail', 'users.id')
-            ->where('user_id', $request->id)
-            ->get();
-            
-        $cntFolloweePost= array();
-        $cntFolloweeFollowees= array();
-        foreach($users as $user)
-        {
-            $cntFolloweePost[] = Post::where('user_id', $user->id)->count();
-            $cntFolloweeFollowees[] = Follow::where('follower_id', $user->id)->count();
-        }
-        
         $posts = Post::where('user_id', $request->id)->get();
         
         $likes = Post::select()
-            ->join('likes', 'posts.user_id', '=', 'likes.user_id')
+            ->join('likes', 'posts.id', '=', 'likes.post_id')
             ->select('posts.image_path', 'posts.coordination_summary', 'posts.id')
             ->addSelect('post_id')
             ->where('likes.user_id', $request->id)
             ->groupBy('likes.post_id')
-            ->get();
+            ->get();    
         //dd($likes);
         
         return view('likes', [
@@ -335,7 +321,6 @@ class ProfileController extends Controller
             'count_followers' => $count_followers,
             'count_posts' => $count_posts,
             'followings' => $followings,
-            'users' => $users,
             'count_likes' => $count_likes,
             'likes' => $likes
          ]);

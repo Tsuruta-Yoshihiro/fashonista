@@ -122,7 +122,7 @@
                                                                 <ul class="meta clearfix">
                                                                     <li>
                                                                         <a href="{{ url('/user/profile/mypages?id='. $user->id) }}">
-                                                                                {{ $cntFollowerPost[$i] }}
+                                                                            {{ $cntFollowerPost[$i] }}
                                                                             <span>コーディネート</span>
                                                                         </a>
                                                                     </li>

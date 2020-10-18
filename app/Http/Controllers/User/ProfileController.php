@@ -308,8 +308,12 @@ class ProfileController extends Controller
             ->addSelect('post_id')
             ->where('likes.user_id', $request->id)
             ->groupBy('likes.id')
-            ->get();    
+            ->latest('likes.id')->get();    
         
+        $doesnt_exists = User::where('id', $auth->id)->doesntExist();
+        $exists = User::where('id', $request->id)->exists();
+        
+        if($doesnt_exists !== $exists) {
         return view('likes', [
             'posts' => $likes,
             'show_id' => $request->id,
@@ -323,5 +327,8 @@ class ProfileController extends Controller
             'count_likes' => $count_likes,
             'likes' => $likes
          ]);
+        }else{
+         return redirect('top');
+        }
     }
 }

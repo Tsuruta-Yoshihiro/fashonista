@@ -167,8 +167,8 @@
                                             @endif    
                                         @endforeach    
                                     <?php
-                                       $i++;
-                                     ?>    
+                                      $i++;
+                                    ?>    
                                 </ul>
                             </div>
                         </div>

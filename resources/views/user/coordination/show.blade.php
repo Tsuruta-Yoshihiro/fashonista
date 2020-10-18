@@ -68,9 +68,9 @@
                             <div id="gbl_body" class="clearfix">
                                 <div id="content_container" class="clearfix">
                                     <div id="content_main">
-                                        <div id="coordination_img">
+                                        <div id="coordination_img" class="coordination_img">
                                             <p class="img">
-                                                <img src="{{ asset('/storage/image/'. $post->image_path) }}" width="556" height="742">
+                                                <img src="{{ asset('/storage/image/'. $post->image_path) }}" clsss="coordination_img" width="556" height="742">
                                             </p>
                                         </div>
                                     
